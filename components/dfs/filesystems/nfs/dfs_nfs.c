@@ -123,7 +123,7 @@ static void copy_handle(nfs_fh3 *dest, const nfs_fh3 *source)
         return;
     }
 
-    memcpy(dest->data.data_val, source->data.data_val, dest->data.data_len);
+    rt_memcpy(dest->data.data_val, source->data.data_val, dest->data.data_len);
 }
 
 static nfs_fh3 *get_handle(nfs_filesystem *nfs, const char *name)
@@ -137,7 +137,7 @@ static nfs_fh3 *get_handle(nfs_filesystem *nfs, const char *name)
     if (init == NULL)
         return NULL;
 
-    memcpy(init, name, strlen(name) + 1);
+    rt_memcpy(init, name, strlen(name) + 1);
 
     handle = rt_malloc(sizeof(nfs_fh3));
     if (handle == NULL)
@@ -205,7 +205,7 @@ static nfs_fh3 *get_dir_handle(nfs_filesystem *nfs, const char *name)
     init = path = rt_malloc(strlen(name) + 1);
     if (init == NULL)
         return NULL;
-    memcpy(init, name, strlen(name) + 1);
+    rt_memcpy(init, name, strlen(name) + 1);
 
     handle = rt_malloc(sizeof(nfs_fh3));
     if (handle == NULL)
@@ -603,7 +603,7 @@ int nfs_read(struct dfs_fd *file, void *buf, size_t count)
             fd->offset += bytes;
             /* update current position */
             file->pos = fd->offset;
-            memcpy(buf, res.READ3res_u.resok.data.data_val, bytes);
+            rt_memcpy(buf, res.READ3res_u.resok.data.data_val, bytes);
             buf = (void *)((char *)buf + args.count);
             if (res.READ3res_u.resok.eof)
             {
@@ -910,7 +910,7 @@ char *nfs_readdir(nfs_filesystem *nfs, nfs_dir *dir)
 
         args.dir = dir->handle;
         args.cookie = dir->cookie;
-        memcpy(&args.cookieverf, &dir->cookieverf, sizeof(cookieverf3));
+        rt_memcpy(&args.cookieverf, &dir->cookieverf, sizeof(cookieverf3));
         args.count = 1024;
 
         if (nfsproc3_readdir_3(args, &dir->res, nfs->nfs_client) != RPC_SUCCESS)
@@ -926,7 +926,7 @@ char *nfs_readdir(nfs_filesystem *nfs, nfs_dir *dir)
             return NULL;
         }
 
-        memcpy(&dir->cookieverf, &dir->res.READDIR3res_u.resok.cookieverf, sizeof(cookieverf3));
+        rt_memcpy(&dir->cookieverf, &dir->res.READDIR3res_u.resok.cookieverf, sizeof(cookieverf3));
         dir->eof = dir->res.READDIR3res_u.resok.reply.eof;
         dir->entry = dir->res.READDIR3res_u.resok.reply.entries;
     }

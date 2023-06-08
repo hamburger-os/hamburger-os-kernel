@@ -89,7 +89,7 @@ AUTH *authnone_create(void)
     memset(auth_buf, 0, buf_len);
     *auth_buf++ = htonl(rt_tick_get());
     *auth_buf++ = htonl(str_len);
-    memcpy(auth_buf, _credentia.name, str_len);
+    rt_memcpy(auth_buf, _credentia.name, str_len);
     auth_buf += (str_len + sizeof(rt_uint32_t) - 1) >> 2;
     *auth_buf++ = htonl(_credentia.uid);
     *auth_buf++ = htonl(_credentia.gid);

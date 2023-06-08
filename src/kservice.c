@@ -638,13 +638,23 @@ RTM_EXPORT(rt_strdup);
 /**
  * This function will show the version of rt-thread rtos
  */
+
 void rt_show_version(void)
 {
-    rt_kprintf("\n \\ | /\n");
-    rt_kprintf("- RT -     Thread Operating System\n");
-    rt_kprintf(" / | \\     %d.%d.%d build %s %s\n",
+    rt_kprintf("\n");
+    rt_kprintf("'  ######  ##      ##  #######   ######   #######   \n");
+    rt_kprintf("' ##    ## ##  ##  ## ##     ## ##    ## ##     ##  \n");
+    rt_kprintf("' ##       ##  ##  ## ##     ## ##              ##  \n");
+    rt_kprintf("'  ######  ##  ##  ## ##     ##  ######   #######   \n");
+    rt_kprintf("'       ## ##  ##  ## ##     ##       ## ##         \n");
+    rt_kprintf("'       ## ##  ##  ## ##     ##       ## ##         \n");
+    rt_kprintf("' ##    ## ##  ##  ## ##     ## ##    ## ##         \n");
+    rt_kprintf("'  ######   ###  ###   #######   ######  #########  \n");
+    rt_kprintf("'                           Thread Operating System\n");
+    rt_kprintf("'                  %d.%d.%d build %s %s\n",
                RT_VERSION, RT_SUBVERSION, RT_REVISION, __DATE__, __TIME__);
-    rt_kprintf(" 2006 - 2022 Copyright by RT-Thread team\n");
+    rt_kprintf("'                              Powered by RT-Thread\n");
+    rt_kprintf("'           2006 - 2023 Copyright by hnthinker team\n");
 }
 RTM_EXPORT(rt_show_version);
 

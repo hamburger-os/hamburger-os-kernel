@@ -336,7 +336,7 @@ int rt_signal_wait(const rt_sigset_t *set, rt_siginfo_t *si, rt_int32_t timeout)
     }
 
     /* clear siginfo to avoid unknown value */
-    memset(si, 0x0, sizeof(rt_siginfo_t));
+    rt_memset(si, 0x0, sizeof(rt_siginfo_t));
 
     level = rt_hw_interrupt_disable();
 
@@ -592,7 +592,7 @@ int rt_thread_kill(rt_thread_t tid, int sig)
             entry = rt_slist_entry(node, struct siginfo_node, list);
             if (entry->si.si_signo == sig)
             {
-                memcpy(&(entry->si), &si, sizeof(siginfo_t));
+                rt_memcpy(&(entry->si), &si, sizeof(siginfo_t));
                 rt_hw_interrupt_enable(level);
                 return 0;
             }
@@ -604,7 +604,7 @@ int rt_thread_kill(rt_thread_t tid, int sig)
     if (si_node)
     {
         rt_slist_init(&(si_node->list));
-        memcpy(&(si_node->si), &si, sizeof(siginfo_t));
+        rt_memcpy(&(si_node->si), &si, sizeof(siginfo_t));
 
         level = rt_hw_interrupt_disable();
 

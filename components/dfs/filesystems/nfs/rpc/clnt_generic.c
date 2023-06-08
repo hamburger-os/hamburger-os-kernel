@@ -67,7 +67,7 @@ CLIENT *clnt_create(const char *hostname, const unsigned long prog,
         return NULL;
     }
 
-    memcpy(&server, res->ai_addr, sizeof(struct sockaddr_in));
+    rt_memcpy(&server, res->ai_addr, sizeof(struct sockaddr_in));
     freeaddrinfo(res);
 
     sock = -1;

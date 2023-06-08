@@ -15,6 +15,7 @@
 #include <rtthread.h>
 #include <rtdevice.h>
 #include <string.h>
+#include <stdlib.h>
 
 /* ========================== block device ======================== */
 struct fal_blk_device
@@ -45,7 +46,7 @@ static rt_err_t blk_dev_control(rt_device_t dev, rt_uint8_t cmd, void *args)
             return -RT_ERROR;
         }
 
-        memcpy(geometry, &part->geometry, sizeof(struct rt_device_blk_geometry));
+        rt_memcpy(geometry, &part->geometry, sizeof(struct rt_device_blk_geometry));
     }
     else if (cmd == RT_DEVICE_CTRL_BLK_ERASE)
     {
@@ -588,9 +589,9 @@ static void fal(uint8_t argc, char **argv) {
     else
     {
         const char *operator = argv[1];
-        uint32_t addr, size;
+        uint32_t addr, size = 0;
 
-        if (!strcmp(operator, "probe"))
+        if (!rt_strcmp(operator, "probe"))
         {
             if (argc >= 3)
             {
@@ -697,7 +698,7 @@ static void fal(uint8_t argc, char **argv) {
                     }
                 }
             }
-            else if (!strcmp(operator, "write"))
+            else if (!rt_strcmp(operator, "write"))
             {
                 if (argc < 4)
                 {
@@ -766,14 +767,14 @@ static void fal(uint8_t argc, char **argv) {
                     }
                 }
             }
-            else if (!strcmp(operator, "bench"))
+            else if (!rt_strcmp(operator, "bench"))
             {
                 if (argc < 3)
                 {
                     rt_kprintf("Usage: %s.\n", help_info[CMD_BENCH_INDEX]);
                     return;
                 }
-                else if ((argc > 3 && strcmp(argv[3], "yes")) || argc < 4)
+                else if ((argc > 3 && rt_strcmp(argv[3], "yes")) || argc < 4)
                 {
                     rt_kprintf("DANGER: It will erase full chip or partition! Please run 'fal bench %d yes'.\n", strtol(argv[2], NULL, 0));
                     return;
@@ -875,15 +876,7 @@ static void fal(uint8_t argc, char **argv) {
                             result = fal_partition_read(part_dev, i, read_data, cur_op_size);
                         }
                         /* data check */
-                        for (size_t index = 0; index < cur_op_size; index ++)
-                        {
-                            if (write_data[index] != read_data[index])
-                            {
-                                rt_kprintf("%d %d %02x %02x.\n", i, index, write_data[index], read_data[index]);
-                            }
-                        }
-
-                        if (memcmp(write_data, read_data, cur_op_size))
+                        if (rt_memcmp(write_data, read_data, cur_op_size) != 0)
                         {
                             result = -RT_ERROR;
                             rt_kprintf("Data check ERROR! Please check you flash by other command.\n");

@@ -125,6 +125,7 @@ rt_uint32_t rt_adc_read(rt_adc_device_t dev, rt_uint32_t channel)
 
     return value;
 }
+RTM_EXPORT(rt_adc_read);
 
 rt_err_t rt_adc_enable(rt_adc_device_t dev, rt_uint32_t channel)
 {
@@ -143,6 +144,7 @@ rt_err_t rt_adc_enable(rt_adc_device_t dev, rt_uint32_t channel)
 
     return result;
 }
+RTM_EXPORT(rt_adc_enable);
 
 rt_err_t rt_adc_disable(rt_adc_device_t dev, rt_uint32_t channel)
 {
@@ -161,11 +163,12 @@ rt_err_t rt_adc_disable(rt_adc_device_t dev, rt_uint32_t channel)
 
     return result;
 }
+RTM_EXPORT(rt_adc_disable);
 
-rt_int16_t rt_adc_voltage(rt_adc_device_t dev, rt_uint32_t channel)
+rt_uint32_t rt_adc_voltage(rt_adc_device_t dev, rt_uint32_t channel)
 {
     rt_uint32_t value = 0;
-    rt_int16_t vref = 0, voltage = 0;
+    rt_uint32_t vref = 0, voltage = 0;
     rt_uint8_t resolution = 0;
 
     RT_ASSERT(dev);
@@ -189,6 +192,7 @@ rt_int16_t rt_adc_voltage(rt_adc_device_t dev, rt_uint32_t channel)
 _voltage_exit:
     return voltage;
 }
+RTM_EXPORT(rt_adc_voltage);
 
 #ifdef RT_USING_FINSH
 

@@ -61,7 +61,7 @@ pthread_t _pthread_data_create(void)
     ptd = (_pthread_data_t*)rt_malloc(sizeof(_pthread_data_t));
     if (!ptd) return PTHREAD_NUM_MAX;
 
-    memset(ptd, 0x0, sizeof(_pthread_data_t));
+    rt_memset(ptd, 0x0, sizeof(_pthread_data_t));
     ptd->canceled = 0;
     ptd->cancelstate = PTHREAD_CANCEL_DISABLE;
     ptd->canceltype = PTHREAD_CANCEL_DEFERRED;
@@ -231,7 +231,7 @@ int pthread_create(pthread_t            *pid,
         ret = ENOMEM;
         goto __exit;
     }
-    memset(ptd->tid, 0, sizeof(struct rt_thread));
+    rt_memset(ptd->tid, 0, sizeof(struct rt_thread));
 
     if (ptd->attr.detachstate == PTHREAD_CREATE_JOINABLE)
     {

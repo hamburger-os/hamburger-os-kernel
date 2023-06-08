@@ -12,12 +12,6 @@
 #include <string.h>
 #include <stdlib.h>
 
-/* partition magic word */
-#define FAL_PART_MAGIC_WORD         0x45503130
-#define FAL_PART_MAGIC_WORD_H       0x4550L
-#define FAL_PART_MAGIC_WORD_L       0x3130L
-#define FAL_PART_MAGIC_WROD         0x45503130
-
 struct part_flash_info
 {
     const struct fal_flash_dev *flash_dev;
@@ -35,10 +29,9 @@ struct part_flash_info
 #endif
 
 /* partition table definition */
-static const struct fal_partition partition_table_def[] = FAL_PART_TABLE;
 static const struct fal_partition *partition_table = NULL;
 /* partition and flash object information cache table */
-static struct part_flash_info part_flash_cache[sizeof(partition_table_def) / sizeof(partition_table_def[0])] = { 0 };
+static struct part_flash_info part_flash_cache[PART_FLASH_MAX] = { 0 };
 
 #else /* FAL_PART_HAS_TABLE_CFG */
 
@@ -158,7 +151,7 @@ int fal_partition_init(void)
 
 #ifdef FAL_PART_HAS_TABLE_CFG
     partition_table = &partition_table_def[0];
-    partition_table_len = sizeof(partition_table_def) / sizeof(partition_table_def[0]);
+    partition_table_len = partition_table_def_len;
 #else
     /* load partition table from the end address FAL_PART_TABLE_END_OFFSET, error return 0 */
     long part_table_offset = FAL_PART_TABLE_END_OFFSET;
@@ -248,7 +241,7 @@ int fal_partition_init(void)
     /* load partition table */
     while (part_table_find_ok)
     {
-        memset(new_part, 0x00, table_num);
+        rt_memset(new_part, 0x00, table_num);
         if (flash_dev->ops.read(part_table_offset - table_item_size * (table_num), (uint8_t *) new_part,
                 table_item_size) < 0)
         {
@@ -270,7 +263,7 @@ int fal_partition_init(void)
             break;
         }
 
-        memcpy(partition_table + table_num, new_part, table_item_size);
+        rt_memcpy(partition_table + table_num, new_part, table_item_size);
 
         table_num++;
     };

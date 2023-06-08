@@ -165,10 +165,10 @@ struct can_configure
 
 #define CANDEFAULTCONFIG \
 {\
-        CAN1MBaud,\
-        RT_CANMSG_BOX_SZ,\
-        RT_CANSND_BOX_NUM,\
-        RT_CAN_MODE_NORMAL,\
+    CAN500kBaud,\
+    RT_CANMSG_BOX_SZ,\
+    RT_CANSND_BOX_NUM,\
+    RT_CAN_MODE_NORMAL,\
 };
 
 struct rt_can_ops;

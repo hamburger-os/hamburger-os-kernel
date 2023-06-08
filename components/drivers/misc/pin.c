@@ -138,19 +138,21 @@ void rt_pin_mode(rt_base_t pin, rt_base_t mode)
     RT_ASSERT(_hw_pin.ops != RT_NULL);
     _hw_pin.ops->pin_mode(&_hw_pin.parent, pin, mode);
 }
+RTM_EXPORT(rt_pin_mode);
 
 void rt_pin_write(rt_base_t pin, rt_base_t value)
 {
     RT_ASSERT(_hw_pin.ops != RT_NULL);
     _hw_pin.ops->pin_write(&_hw_pin.parent, pin, value);
 }
+RTM_EXPORT(rt_pin_write);
 
 int rt_pin_read(rt_base_t pin)
 {
     RT_ASSERT(_hw_pin.ops != RT_NULL);
     return _hw_pin.ops->pin_read(&_hw_pin.parent, pin);
 }
-
+RTM_EXPORT(rt_pin_read);
 
 rt_base_t rt_pin_get(const char *name)
 {
@@ -166,6 +168,7 @@ rt_base_t rt_pin_get(const char *name)
     }
     return _hw_pin.ops->pin_get(name);
 }
+RTM_EXPORT(rt_pin_get);
 
 #ifdef RT_USING_FINSH
 #include <string.h>

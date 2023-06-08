@@ -93,9 +93,9 @@ static __inline void *emutls_allocate_object(__emutls_control *control)
 
     void *base = emutls_memalign_alloc(align, size);
     if (control->value)
-        memcpy(base, control->value, size);
+        rt_memcpy(base, control->value, size);
     else
-        memset(base, 0, size);
+        rt_memset(base, 0, size);
     return base;
 }
 
@@ -190,7 +190,7 @@ emutls_get_address_array(uintptr_t index)
         uintptr_t new_size = emutls_new_data_array_size(index);
         array = realloc(array, (new_size + 1) * sizeof(void *));
         if (array)
-            memset(array->data + orig_size, 0,
+            rt_memset(array->data + orig_size, 0,
                    (new_size - orig_size) * sizeof(void *));
         emutls_check_array_set_size(array, new_size);
     }

@@ -9,6 +9,7 @@
  */
 
 #include <stdarg.h>
+#include <stdlib.h>
 #include "ulog.h"
 #include "rthw.h"
 
@@ -668,6 +669,7 @@ void ulog_output(rt_uint32_t level, const char *tag, rt_bool_t newline, const ch
 
     va_end(args);
 }
+RTM_EXPORT(ulog_output);
 
 /**
  * output RAW string format log
@@ -872,6 +874,7 @@ void ulog_hexdump(const char *tag, rt_size_t width, rt_uint8_t *buf, rt_size_t s
     /* unlock output */
     output_unlock();
 }
+RTM_EXPORT(ulog_hexdump);
 
 #ifdef ULOG_USING_FILTER
 /**

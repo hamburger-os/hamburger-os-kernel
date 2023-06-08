@@ -123,7 +123,7 @@ xdrmem_getbytes (XDR *xdrs, char *addr, unsigned int len)
 {
   if (xdrs->x_handy < len) return FALSE;
   xdrs->x_handy -= len;
-  memmove(addr, xdrs->x_private, len);
+  rt_memmove(addr, xdrs->x_private, len);
   xdrs->x_private += len;
   return TRUE;
 }
@@ -133,7 +133,7 @@ xdrmem_putbytes (XDR *xdrs, const char *addr, unsigned int len)
 {
   if (xdrs->x_handy < len) return FALSE;
   xdrs->x_handy -= len;
-  memmove(xdrs->x_private, addr, len);
+  rt_memmove(xdrs->x_private, addr, len);
   xdrs->x_private += len;
   return (TRUE);
 }

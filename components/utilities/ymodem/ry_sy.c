@@ -37,13 +37,15 @@ static enum rym_code _rym_recv_begin(
 {
     struct custom_ctx *cctx = (struct custom_ctx *)ctx;
 
-    cctx->fpath[0] = '/';
-    rt_strncpy(&(cctx->fpath[1]), (const char *)buf, len - 1);
+    rt_memset(cctx->fpath, 0, DFS_PATH_MAX);
+    getcwd(cctx->fpath, DFS_PATH_MAX);
+    cctx->fpath[rt_strlen(cctx->fpath)] = '/';
+    rt_strncpy(&(cctx->fpath[rt_strlen(cctx->fpath)]), (const char *)buf, len - 1);
     cctx->fd = open(cctx->fpath, O_CREAT | O_WRONLY | O_TRUNC, 0);
     if (cctx->fd < 0)
     {
         rt_err_t err = rt_get_errno();
-        rt_kprintf("error creating file: %d\n", err);
+        rt_kprintf("error creating file '%s': %d\n", cctx->fpath, err);
         return RYM_CODE_CAN;
     }
     cctx->flen = atoi(1 + (const char *)buf + rt_strnlen((const char *)buf, len - 1));

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006-2022, RT-Thread Development Team
+ * Copyright (c) 2006-2023, RT-Thread Development Team
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -32,7 +32,7 @@
 #include <rtthread.h>
 #include <rtdevice.h>
 
-#define DBG_TAG    "UART"
+#define DBG_TAG    "Serial"
 #define DBG_LVL    DBG_INFO
 #include <rtdbg.h>
 
@@ -157,6 +157,10 @@ static int serial_fops_read(struct dfs_fd *fd, void *buf, size_t count)
         }
     }while (size <= 0);
 
+    if (size < 0)
+    {
+        size = 0;
+    }
     return size;
 }
 
@@ -424,7 +428,7 @@ static void rt_dma_recv_update_get_index(struct rt_serial_device *serial, rt_siz
 
     if (rx_fifo->is_full && len != 0) rx_fifo->is_full = RT_FALSE;
 
-    rx_fifo->get_index += len;
+    rx_fifo->get_index += (rt_uint16_t)len;
     if (rx_fifo->get_index >= serial->config.bufsz)
     {
         rx_fifo->get_index %= serial->config.bufsz;
@@ -445,7 +449,7 @@ static void rt_dma_recv_update_put_index(struct rt_serial_device *serial, rt_siz
 
     if (rx_fifo->get_index <= rx_fifo->put_index)
     {
-        rx_fifo->put_index += len;
+        rx_fifo->put_index += (rt_uint16_t)len;
         /* beyond the fifo end */
         if (rx_fifo->put_index >= serial->config.bufsz)
         {
@@ -459,7 +463,7 @@ static void rt_dma_recv_update_put_index(struct rt_serial_device *serial, rt_siz
     }
     else
     {
-        rx_fifo->put_index += len;
+        rx_fifo->put_index += (rt_uint16_t)len;
         if (rx_fifo->put_index >= rx_fifo->get_index)
         {
             /* beyond the fifo end */
@@ -1016,7 +1020,7 @@ static rt_err_t rt_serial_control(struct rt_device *dev,
                 if (pconfig->bufsz != serial->config.bufsz && serial->parent.ref_count)
                 {
                     /*can not change buffer size*/
-                    return RT_EBUSY;
+                    return -RT_EBUSY;
                 }
                 /* set serial configure */
                 serial->config = *pconfig;
@@ -1026,7 +1030,6 @@ static rt_err_t rt_serial_control(struct rt_device *dev,
                     serial->ops->configure(serial, (struct serial_configure *) args);
                 }
             }
-
             break;
 #ifdef RT_USING_POSIX_STDIO
 #ifdef RT_USING_POSIX_TERMIOS
@@ -1180,12 +1183,12 @@ static rt_err_t rt_serial_control(struct rt_device *dev,
                     rt_memset(row_s,0,4);
                     rt_memset(col_s,0,4);
                     cnt1 = 0;
-                    while(_tio_buf[cnt1] != ';' && cnt1 < _TIO_BUFLEN)
+                    while(cnt1 < _TIO_BUFLEN && _tio_buf[cnt1] != ';')
                     {
                         cnt1++;
                     }
                     cnt2 = ++cnt1;
-                    while(_tio_buf[cnt2] != ';' && cnt2 < _TIO_BUFLEN)
+                    while(cnt2 < _TIO_BUFLEN && _tio_buf[cnt2] != ';')
                     {
                         cnt2++;
                     }

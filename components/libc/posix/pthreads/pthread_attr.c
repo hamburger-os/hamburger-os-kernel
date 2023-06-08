@@ -43,7 +43,7 @@ int pthread_attr_destroy(pthread_attr_t *attr)
 {
     RT_ASSERT(attr != RT_NULL);
 
-    memset(attr, 0, sizeof(pthread_attr_t));
+    rt_memset(attr, 0, sizeof(pthread_attr_t));
 
     return 0;
 }

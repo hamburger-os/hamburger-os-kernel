@@ -129,7 +129,7 @@ static rt_int32_t mmcsd_parse_csd(struct rt_mmcsd_card *card)
 
         return -RT_ERROR;
     }
-    LOG_I("SD card capacity %d KB.", card->card_capacity);
+    LOG_I("SD card capacity %d MB.", card->card_capacity/1024);
 
     return 0;
 }

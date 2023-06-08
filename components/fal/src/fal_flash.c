@@ -16,8 +16,6 @@
 #error "You must defined flash device table (FAL_FLASH_DEV_TABLE) on 'fal_cfg.h'"
 #endif
 
-static const struct fal_flash_dev * const device_table[] = FAL_FLASH_DEV_TABLE;
-static const size_t device_table_len = sizeof(device_table) / sizeof(device_table[0]);
 static uint8_t init_ok = 0;
 
 /**

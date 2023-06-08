@@ -644,7 +644,7 @@ static void copyfile(const char *src, const char *dst)
 
         return;
     }
-    if (dfs_file_open(&fd, dst, O_WRONLY | O_CREAT) < 0)
+    if (dfs_file_open(&fd, dst, O_WRONLY | O_CREAT | O_TRUNC) < 0)
     {
         rt_free(block_ptr);
         dfs_file_close(&src_fd);
@@ -678,7 +678,7 @@ static void copyfile(const char *src, const char *dst)
 }
 
 extern int mkdir(const char *path, mode_t mode);
-static void copydir(const char *src, const char *dst)
+void copydir(const char *src, const char *dst)
 {
     struct dirent dirent;
     struct stat stat;

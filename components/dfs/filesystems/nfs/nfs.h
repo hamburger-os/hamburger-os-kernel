@@ -42,7 +42,7 @@ typedef unsigned long long uint64;
 
 typedef long long int64;
 
-typedef u_long uint32;
+typedef unsigned long uint32;
 
 typedef long int32;
 

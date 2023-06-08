@@ -88,14 +88,17 @@ static void ulog_file_backend_flush_with_buf(struct ulog_backend *backend)
         /* check log file directory  */
         if (access(be->cur_log_dir_path, 0) < 0)
         {
-            mkdir(be->cur_log_dir_path, 0);
+            if (mkdir(be->cur_log_dir_path, 0) != 0)
+            {
+                rt_kprintf("ulog mkdir(%s) failed.\r\n", be->cur_log_dir_path);
+            }
         }
         /* open file */
         rt_snprintf(be->cur_log_file_path, ULOG_FILE_PATH_LEN, "%s/%s.log", be->cur_log_dir_path, be->parent.name);
         be->cur_log_file_fd = open(be->cur_log_file_path, O_CREAT | O_RDWR | O_APPEND);
         if (be->cur_log_file_fd < 0)
         {
-            rt_kprintf("ulog file(%s) open failed.", be->cur_log_file_path);
+            rt_kprintf("ulog file(%s) open failed.\r\n", be->cur_log_file_path);
             return;
         }
     }
@@ -113,6 +116,7 @@ static void ulog_file_backend_flush_with_buf(struct ulog_backend *backend)
     /* write to the file */
     if (write(be->cur_log_file_fd, be->file_buf, write_size) != write_size)
     {
+        rt_kprintf("ulog file(%s) write failed.\r\n", be->cur_log_file_path);
         return;
     }
     /* flush file cache */
@@ -170,7 +174,7 @@ int ulog_file_backend_init(struct ulog_file_be *be, const char *name, const char
     be->file_buf = rt_calloc(1, buf_size);
     if (!be->file_buf)
     {
-        rt_kprintf("Warning: NO MEMORY for %s file backend\n", name);
+        rt_kprintf("Warning: NO MEMORY for %s file backend\r\n", name);
         return -RT_ENOMEM;
     }
     /* temporarily store the start address of the ulog file buffer */

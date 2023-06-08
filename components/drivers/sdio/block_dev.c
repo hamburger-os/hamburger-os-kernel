@@ -417,6 +417,10 @@ static struct mmcsd_blk_device * rt_mmcsd_create_blkdev(struct rt_mmcsd_card *ca
         dfs_mount_device(&(blk_dev->dev));
     }
 #endif
+    LOG_I("mmcsd creat blkdev: %s, block %d, size %d MB", dname
+            , blk_dev->geometry.block_size, blk_dev->geometry.sector_count / 1024 * blk_dev->geometry.block_size / 1024);
+
+    mmcsd_mount(dname);
 
     return blk_dev;
 }
@@ -473,18 +477,28 @@ rt_int32_t rt_mmcsd_blk_probe(struct rt_mmcsd_card *card)
             }
             else
             {
+                if (i == 0)
+                {
+                    rt_snprintf(dname, sizeof(dname), "sd%d", host_id);
+                    blk_dev = rt_mmcsd_create_blkdev(card, (const char*)dname, RT_NULL);
+                    if ( blk_dev == RT_NULL )
+                    {
+                        err = -RT_ENOMEM;
+                        goto exit_rt_mmcsd_blk_probe;
+                    }
+                }
                 break;
             }
         }
 
         /* Always create the super node, given name is with allocated host id. */
-        rt_snprintf(dname, sizeof(dname), "sd%d", host_id);
-        blk_dev = rt_mmcsd_create_blkdev(card, (const char*)dname, RT_NULL);
-        if ( blk_dev == RT_NULL )
-        {
-            err = -RT_ENOMEM;
-            goto exit_rt_mmcsd_blk_probe;
-        }
+//        rt_snprintf(dname, sizeof(dname), "sd%d", host_id);
+//        blk_dev = rt_mmcsd_create_blkdev(card, (const char*)dname, RT_NULL);
+//        if ( blk_dev == RT_NULL )
+//        {
+//            err = -RT_ENOMEM;
+//            goto exit_rt_mmcsd_blk_probe;
+//        }
     }
     else
     {
@@ -521,6 +535,13 @@ void rt_mmcsd_blk_remove(struct rt_mmcsd_card *card)
             rt_device_unregister(&blk_dev->dev);
             rt_list_remove(&blk_dev->list);
             rt_free(blk_dev);
+
+            LOG_D("remove mmcsd block device!");
         }
     }
+}
+
+RT_WEAK void mmcsd_mount(const char* dname)
+{
+
 }

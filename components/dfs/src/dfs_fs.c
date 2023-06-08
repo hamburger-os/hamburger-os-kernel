@@ -183,19 +183,23 @@ int dfs_filesystem_get_partition(struct dfs_partition *part,
     part->offset = *(dpt + 8) | *(dpt + 9) << 8 | *(dpt + 10) << 16 | *(dpt + 11) << 24;
     part->size = *(dpt + 12) | *(dpt + 13) << 8 | *(dpt + 14) << 16 | *(dpt + 15) << 24;
 
-    rt_kprintf("found part[%d], begin: %d, size: ",
-               pindex, part->offset * 512);
-    if ((part->size >> 11) == 0)
-        rt_kprintf("%d%s", part->size >> 1, "KB\n"); /* KB */
-    else
-    {
-        unsigned int part_size;
-        part_size = part->size >> 11;                /* MB */
-        if ((part_size >> 10) == 0)
-            rt_kprintf("%d.%d%s", part_size, (part->size >> 1) & 0x3FF, "MB\n");
-        else
-            rt_kprintf("%d.%d%s", part_size >> 10, part_size & 0x3FF, "GB\n");
-    }
+//    char format_str[128] = {0};
+//    uint16_t length = 0;
+//    length = rt_snprintf(format_str + length, sizeof(format_str) - length,"found part[%d], begin: %p, size: ",
+//               pindex, part->offset * 512);
+//    if ((part->size >> 11) == 0)
+//        length = rt_snprintf(format_str + length, sizeof(format_str) - length, "%d%s", part->size >> 1, "KB"); /* KB */
+//    else
+//    {
+//        unsigned int part_size;
+//        part_size = part->size >> 11;                /* MB */
+//        if ((part_size >> 10) == 0)
+//            length = rt_snprintf(format_str + length, sizeof(format_str) - length, "%d.%d%s", part_size, (part->size >> 1) & 0x3FF, "MB");
+//        else
+//            length = rt_snprintf(format_str + length, sizeof(format_str) - length, "%d.%d%s", part_size >> 10, part_size & 0x3FF, "GB");
+//    }
+//    LOG_D("%s", format_str);
+    LOG_D("found part[%d], begin: %p, size: %d KB", pindex, part->offset * 512, part->size >> 1);
 
     return RT_EOK;
 }

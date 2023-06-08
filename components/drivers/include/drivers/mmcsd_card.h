@@ -127,8 +127,6 @@ struct rt_sdio_function {
 
 #define SDIO_MAX_FUNCTIONS      7
 
-
-
 struct rt_mmcsd_card {
     struct rt_mmcsd_host *host;
     rt_uint32_t rca;        /* card addr */
@@ -163,6 +161,8 @@ struct rt_mmcsd_card {
     struct rt_sdio_function *sdio_function[SDIO_MAX_FUNCTIONS + 1]; /* SDIO functions (devices) */
     rt_list_t blk_devices;  /* for block device list */
 };
+
+void mmcsd_mount(const char* dname);
 
 #ifdef __cplusplus
 }

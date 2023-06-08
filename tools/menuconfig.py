@@ -92,6 +92,149 @@ def mk_rtconfig(filename):
 
                 if setting[1] == 'y':
                     rtconfig.write('#define %s\n' % setting[0])
+                    if setting[0] == 'SOC_MINILINK_V2':
+                        try:
+                            shutil.copyfile('board/linker_scripts/stm32f103cb/link.icf', 'board/linker_scripts/link.icf')
+                            shutil.copyfile('board/linker_scripts/stm32f103cb/link.lds', 'board/linker_scripts/link.lds')
+                            shutil.copyfile('board/linker_scripts/stm32f103cb/link.sct', 'board/linker_scripts/link.sct')
+                            shutil.copyfile('project/stm32f103cb/.cproject', '.cproject')
+                            shutil.copyfile('project/stm32f103cb/rtconfig.py', 'rtconfig.py')
+                            shutil.copyfile('project/stm32f103cb/template.uvoptx', 'template.uvoptx')
+                            shutil.copyfile('project/stm32f103cb/template.uvprojx', 'template.uvprojx')
+                        except IOError as e:
+                            print("Unable to copy file. %s" % e)
+                        except:
+                            print("Unexpected error:", sys.exc_info())
+                        soc = setting[0]
+                        print('config mcu %s\n' % setting[0])
+                    elif setting[0] == 'SOC_ATK_EXPLORER_V24':
+                        try:
+                            shutil.copyfile('board/linker_scripts/stm32f407zg/link.icf', 'board/linker_scripts/link.icf')
+                            shutil.copyfile('board/linker_scripts/stm32f407zg/link.lds', 'board/linker_scripts/link.lds')
+                            shutil.copyfile('board/linker_scripts/stm32f407zg/link.sct', 'board/linker_scripts/link.sct')
+                            shutil.copyfile('project/stm32f407zg/.cproject', '.cproject')
+                            shutil.copyfile('project/stm32f407zg/rtconfig.py', 'rtconfig.py')
+                            shutil.copyfile('project/stm32f407zg/template.uvoptx', 'template.uvoptx')
+                            shutil.copyfile('project/stm32f407zg/template.uvprojx', 'template.uvprojx')
+                        except IOError as e:
+                            print("Unable to copy file. %s" % e)
+                        except:
+                            print("Unexpected error:", sys.exc_info())
+                        soc = setting[0]
+                        print('config mcu %s\n' % setting[0])
+                    elif setting[0] == 'SOC_STM32F427ZGT6':
+                        try:
+                            shutil.copyfile('board/linker_scripts/stm32f427zg/link.icf', 'board/linker_scripts/link.icf')
+                            shutil.copyfile('board/linker_scripts/stm32f427zg/link.lds', 'board/linker_scripts/link.lds')
+                            shutil.copyfile('board/linker_scripts/stm32f427zg/link.sct', 'board/linker_scripts/link.sct')
+                            shutil.copyfile('project/stm32f427zg/.cproject', '.cproject')
+                            shutil.copyfile('project/stm32f427zg/rtconfig.py', 'rtconfig.py')
+                            shutil.copyfile('project/stm32f427zg/template.uvoptx', 'template.uvoptx')
+                            shutil.copyfile('project/stm32f427zg/template.uvprojx', 'template.uvprojx')
+                        except IOError as e:
+                            print("Unable to copy file. %s" % e)
+                        except:
+                            print("Unexpected error:", sys.exc_info())
+                        soc = setting[0]
+                        print('config mcu %s\n' % setting[0])
+                    elif setting[0] == 'SOC_M4COREBOARD_NOSRAM':
+                        try:
+                            shutil.copyfile('board/linker_scripts/stm32f429ii/link.icf', 'board/linker_scripts/link.icf')
+                            shutil.copyfile('board/linker_scripts/stm32f429ii/link.lds', 'board/linker_scripts/link.lds')
+                            shutil.copyfile('board/linker_scripts/stm32f429ii/link.sct', 'board/linker_scripts/link.sct')
+                            shutil.copyfile('project/stm32f429ii/.cproject', '.cproject')
+                            shutil.copyfile('project/stm32f429ii/rtconfig.py', 'rtconfig.py')
+                            shutil.copyfile('project/stm32f429ii/template.uvoptx', 'template.uvoptx')
+                            shutil.copyfile('project/stm32f429ii/template.uvprojx', 'template.uvprojx')
+                        except IOError as e:
+                            print("Unable to copy file. %s" % e)
+                        except:
+                            print("Unexpected error:", sys.exc_info())
+                        soc = setting[0]
+                        print('config mcu %s\n' % setting[0])
+                    elif setting[0] == 'SOC_M4COREBOARD_SRAM':
+                        try:
+                            shutil.copyfile('board/linker_scripts/stm32f429ii/link.icf', 'board/linker_scripts/link.icf')
+                            shutil.copyfile('board/linker_scripts/stm32f429ii/link.lds', 'board/linker_scripts/link.lds')
+                            shutil.copyfile('board/linker_scripts/stm32f429ii/link.sct', 'board/linker_scripts/link.sct')
+                            shutil.copyfile('project/stm32f429ii/.cproject', '.cproject')
+                            shutil.copyfile('project/stm32f429ii/rtconfig.py', 'rtconfig.py')
+                            shutil.copyfile('project/stm32f429ii/template.uvoptx', 'template.uvoptx')
+                            shutil.copyfile('project/stm32f429ii/template.uvprojx', 'template.uvprojx')
+                        except IOError as e:
+                            print("Unable to copy file. %s" % e)
+                        except:
+                            print("Unexpected error:", sys.exc_info())
+                        soc = setting[0]
+                        print('config mcu %s\n' % setting[0])
+                    elif setting[0] == 'SOC_STM32F437IIT6':
+                        try:
+                            shutil.copyfile('board/linker_scripts/stm32f437ii/link.icf', 'board/linker_scripts/link.icf')
+                            shutil.copyfile('board/linker_scripts/stm32f437ii/link.lds', 'board/linker_scripts/link.lds')
+                            shutil.copyfile('board/linker_scripts/stm32f437ii/link.sct', 'board/linker_scripts/link.sct')
+                            shutil.copyfile('project/stm32f437ii/.cproject', '.cproject')
+                            shutil.copyfile('project/stm32f437ii/rtconfig.py', 'rtconfig.py')
+                            shutil.copyfile('project/stm32f437ii/template.uvoptx', 'template.uvoptx')
+                            shutil.copyfile('project/stm32f437ii/template.uvprojx', 'template.uvprojx')
+                        except IOError as e:
+                            print("Unable to copy file. %s" % e)
+                        except:
+                            print("Unexpected error:", sys.exc_info())
+                        soc = setting[0]
+                        print('config mcu %s\n' % setting[0])
+                    elif setting[0] == 'SOC_H7COREBOARD_NOSRAM':
+                        try:
+                            shutil.copyfile('board/linker_scripts/stm32h743ii/link.icf', 'board/linker_scripts/link.icf')
+                            shutil.copyfile('board/linker_scripts/stm32h743ii/link.lds', 'board/linker_scripts/link.lds')
+                            shutil.copyfile('board/linker_scripts/stm32h743ii/link.sct', 'board/linker_scripts/link.sct')
+                            shutil.copyfile('project/stm32h743ii/.cproject', '.cproject')
+                            shutil.copyfile('project/stm32h743ii/rtconfig.py', 'rtconfig.py')
+                            shutil.copyfile('project/stm32h743ii/template.uvoptx', 'template.uvoptx')
+                            shutil.copyfile('project/stm32h743ii/template.uvprojx', 'template.uvprojx')
+                        except IOError as e:
+                            print("Unable to copy file. %s" % e)
+                        except:
+                            print("Unexpected error:", sys.exc_info())
+                        soc = setting[0]
+                        print('config mcu %s\n' % setting[0])
+                    elif setting[0] == 'BSP_USING_BOOTAPP':
+                        if soc == 'SOC_M4COREBOARD_NOSRAM':
+                            try:
+                                shutil.copyfile('board/linker_scripts/stm32f429ii/link_bootloader.icf', 'board/linker_scripts/link.icf')
+                                shutil.copyfile('board/linker_scripts/stm32f429ii/link_bootloader.lds', 'board/linker_scripts/link.lds')
+                                shutil.copyfile('board/linker_scripts/stm32f429ii/link_bootloader.sct', 'board/linker_scripts/link.sct')
+                            except IOError as e:
+                                print("Unable to copy file. %s" % e)
+                            except:
+                                print("Unexpected error:", sys.exc_info())
+                        elif soc == 'SOC_M4COREBOARD_SRAM':
+                            try:
+                                shutil.copyfile('board/linker_scripts/stm32f429ii/link_bootloader.icf', 'board/linker_scripts/link.icf')
+                                shutil.copyfile('board/linker_scripts/stm32f429ii/link_bootloader.lds', 'board/linker_scripts/link.lds')
+                                shutil.copyfile('board/linker_scripts/stm32f429ii/link_bootloader.sct', 'board/linker_scripts/link.sct')
+                            except IOError as e:
+                                print("Unable to copy file. %s" % e)
+                            except:
+                                print("Unexpected error:", sys.exc_info())
+                        elif soc == 'SOC_STM32F437IIT6':
+                            try:
+                                shutil.copyfile('board/linker_scripts/stm32f437ii/link_bootloader.icf', 'board/linker_scripts/link.icf')
+                                shutil.copyfile('board/linker_scripts/stm32f437ii/link_bootloader.lds', 'board/linker_scripts/link.lds')
+                                shutil.copyfile('board/linker_scripts/stm32f437ii/link_bootloader.sct', 'board/linker_scripts/link.sct')
+                            except IOError as e:
+                                print("Unable to copy file. %s" % e)
+                            except:
+                                print("Unexpected error:", sys.exc_info())
+                        elif soc == 'SOC_H7COREBOARD_NOSRAM':
+                            try:
+                                shutil.copyfile('board/linker_scripts/stm32h743ii/link_bootloader.icf', 'board/linker_scripts/link.icf')
+                                shutil.copyfile('board/linker_scripts/stm32h743ii/link_bootloader.lds', 'board/linker_scripts/link.lds')
+                                shutil.copyfile('board/linker_scripts/stm32h743ii/link_bootloader.sct', 'board/linker_scripts/link.sct')
+                            except IOError as e:
+                                print("Unable to copy file. %s" % e)
+                            except:
+                                print("Unexpected error:", sys.exc_info())
+                        print('config boot %s %s\n' % (setting[0], soc))
                 else:
                     rtconfig.write('#define %s %s\n' % (setting[0], re.findall(r"^.*?=(.*)$",line)[0]))
 

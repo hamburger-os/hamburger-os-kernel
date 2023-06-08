@@ -186,8 +186,8 @@ struct rt_dlmodule *dlmodule_create(void)
         module->stat = RT_DLMODULE_STAT_INIT;
 
         /* set initial priority and stack size */
-        module->priority = RT_THREAD_PRIORITY_MAX - 1;
-        module->stack_size = 2048;
+        module->priority = RT_THREAD_PRIORITY_MAX/4*3;
+        module->stack_size = 4096;
 
         rt_list_init(&(module->object_list));
     }
@@ -891,3 +891,29 @@ int list_module(void)
     return 0;
 }
 MSH_CMD_EXPORT(list_module, list modules in system);
+
+int kill_module(int argc, char *argv[])
+{
+    if (argc != 2)
+    {
+        rt_kprintf("Usage: kill [name]\n");
+    }
+    else
+    {
+        struct rt_dlmodule * module = dlmodule_find(argv[1]);
+        if (module != NULL)
+        {
+            if (dlmodule_destroy(module) != RT_EOK)
+            {
+                rt_kprintf("Error: module '%s' does not destroy!\n", argv[1]);
+            }
+        }
+        else
+        {
+            rt_kprintf("Error: module '%s' does not exist!\n", argv[1]);
+        }
+    }
+
+    return 0;
+}
+MSH_CMD_EXPORT_ALIAS(kill_module, kill, kill one modules in system);

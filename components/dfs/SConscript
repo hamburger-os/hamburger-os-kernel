@@ -2,20 +2,19 @@ from building import *
 import os
 
 # The set of source files associated with this SConscript file.
-src = Split('''
-src/dfs.c
-src/dfs_file.c
-src/dfs_fs.c
-''')
-cwd = GetCurrentDir()
+src     = []
+cwd     = GetCurrentDir()
 CPPPATH = [cwd + "/include"]
-
-if GetDepend('DFS_USING_POSIX'):
-    src += ['src/dfs_posix.c']
-
-group = DefineGroup('Filesystem', src, depend = ['RT_USING_DFS'], CPPPATH = CPPPATH)
+group   = []
 
 if GetDepend('RT_USING_DFS'):
+    src = ['src/dfs.c', 'src/dfs_file.c', 'src/dfs_fs.c']
+
+    if GetDepend('DFS_USING_POSIX'):
+        src += ['src/dfs_posix.c']
+
+    group = DefineGroup('Filesystem', src, depend = ['RT_USING_DFS'], CPPPATH = CPPPATH)
+
     # search in the file system implementation
     list = os.listdir(cwd)
 

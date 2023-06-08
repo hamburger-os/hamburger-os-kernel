@@ -174,6 +174,7 @@ RT_WEAK rt_tick_t rt_tick_get_millisecond(void)
     return 0;
 #endif /* 1000 % RT_TICK_PER_SECOND == 0u */
 }
+RTM_EXPORT(rt_tick_get_millisecond);
 
 /**@}*/
 

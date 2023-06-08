@@ -10,7 +10,7 @@
 
 #include <rtdevice.h>
 
-#define DBG_TAG               "I2C"
+#define DBG_TAG               "si2c"
 #ifdef RT_I2C_BITOPS_DEBUG
 #define DBG_LVL               DBG_LOG
 #else
@@ -54,15 +54,14 @@ static rt_err_t SCL_H(struct rt_i2c_bit_ops *ops)
     {
         if ((rt_tick_get() - start) > ops->timeout)
             return -RT_ETIMEOUT;
-        rt_thread_delay((ops->timeout + 1) >> 1);
+        i2c_delay(ops);
     }
-#ifdef RT_I2C_BITOPS_DEBUG
-    if (rt_tick_get() != start)
+
+    if (rt_tick_get() > start + 1)
     {
-        LOG_D("wait %ld tick for SCL line to go high",
+        LOG_W("wait %ld tick for SCL line to go high",
               rt_tick_get() - start);
     }
-#endif
 
 done:
     i2c_delay(ops);
@@ -72,7 +71,6 @@ done:
 
 static void i2c_start(struct rt_i2c_bit_ops *ops)
 {
-#ifdef RT_I2C_BITOPS_DEBUG
     if (ops->get_scl && !GET_SCL(ops))
     {
         LOG_E("I2C bus error, SCL line low");
@@ -81,7 +79,7 @@ static void i2c_start(struct rt_i2c_bit_ops *ops)
     {
         LOG_E("I2C bus error, SDA line low");
     }
-#endif
+
     SDA_L(ops);
     i2c_delay(ops);
     SCL_L(ops);
@@ -144,7 +142,7 @@ static rt_int32_t i2c_writeb(struct rt_i2c_bus_device *bus, rt_uint8_t data)
         i2c_delay(ops);
         if (SCL_H(ops) < 0)
         {
-            LOG_D("i2c_writeb: 0x%02x, "
+            LOG_E("i2c_writeb: 0x%02x, "
                     "wait scl pin high timeout at bit %d",
                     data, i);
 
@@ -171,7 +169,7 @@ static rt_int32_t i2c_readb(struct rt_i2c_bus_device *bus)
 
         if (SCL_H(ops) < 0)
         {
-            LOG_D("i2c_readb: wait scl pin high "
+            LOG_E("i2c_readb: wait scl pin high "
                     "timeout at bit %d", 7 - i);
 
             return -RT_ETIMEOUT;
@@ -372,7 +370,8 @@ static rt_size_t i2c_bit_xfer(struct rt_i2c_bus_device *bus,
 {
     struct rt_i2c_msg *msg;
     struct rt_i2c_bit_ops *ops = (struct rt_i2c_bit_ops *)bus->priv;
-    rt_int32_t i, ret;
+    rt_int32_t ret;
+    rt_uint32_t i;
     rt_uint16_t ignore_nack;
 
     if (num == 0) return 0;
