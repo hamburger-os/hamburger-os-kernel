@@ -12,6 +12,8 @@
 #include <rtthread.h>
 #include <rtdevice.h>
 
+#include "board.h"
+
 #define DBG_TAG    "Serial"
 #define DBG_LVL    DBG_INFO
 #include <rtdbg.h>
@@ -432,6 +434,10 @@ static rt_size_t _serial_fifo_rx(struct rt_device        *dev,
     level = rt_hw_interrupt_disable();
     /* When open_flag is RT_SERIAL_RX_NON_BLOCKING,
      * the data is retrieved directly from the ringbuffer and returned */
+
+#if defined (__DCACHE_PRESENT) && (__DCACHE_PRESENT == 1U)
+    SCB_CleanInvalidateDCache_by_Addr((uint32_t *)rx_fifo->buffer, serial->config.rx_bufsz);
+#endif    
     recv_len = rt_ringbuffer_get(&(rx_fifo->rb), buffer, size);
 
     rt_hw_interrupt_enable(level);
