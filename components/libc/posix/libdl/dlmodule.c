@@ -20,6 +20,7 @@
 #include <unistd.h>
 #include <sys/stat.h>
 #include <sys/statfs.h>
+#include <board.h>
 #endif
 
 #define DBG_TAG    "DLMD"
@@ -168,7 +169,16 @@ static void _dlmodule_thread_entry(void* parameter)
         module->cmd_line);
 
     if (module->entry_addr)
+    {
+#if defined (__DCACHE_PRESENT) && (__DCACHE_PRESENT == 1U)
+        SCB_CleanDCache();
+#endif
+
+#if defined (__ICACHE_PRESENT) && (__ICACHE_PRESENT == 1U)
+        SCB_InvalidateICache();
+#endif
         module->entry_addr(argc, argv);
+    }
 
 __exit:
     _dlmodule_exit();
