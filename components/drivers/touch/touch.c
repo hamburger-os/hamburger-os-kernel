@@ -15,8 +15,9 @@
 #define DBG_LVL DBG_INFO
 #include <rtdbg.h>
 
+#ifdef RT_TOUCH_PIN_IRQ
 /* ISR for touch interrupt */
-void rt_hw_touch_isr(rt_touch_t touch)
+static void rt_hw_touch_isr(rt_touch_t touch)
 {
     RT_ASSERT(touch);
     if (touch->parent.rx_indicate == RT_NULL)
@@ -31,6 +32,7 @@ void rt_hw_touch_isr(rt_touch_t touch)
 
     touch->parent.rx_indicate(&touch->parent, 1);
 }
+#endif
 
 #ifdef RT_TOUCH_PIN_IRQ
 static void touch_irq_callback(void *param)
@@ -246,8 +248,6 @@ int rt_hw_touch_register(rt_touch_t touch,
         LOG_E("rt_touch register err code: %d", result);
         return result;
     }
-
-    LOG_I("rt_touch init success");
 
     return RT_EOK;
 }

@@ -106,7 +106,7 @@ int rt_hw_touch_register(rt_touch_t    touch,
                          void          *data);
 
 /* if you doesn't use pin device. you must call this function in your touch irq callback */
-void rt_hw_touch_isr(rt_touch_t touch);
+//void rt_hw_touch_isr(rt_touch_t touch);
 
 #ifdef __cplusplus
 }
