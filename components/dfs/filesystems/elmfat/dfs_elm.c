@@ -948,7 +948,7 @@ DWORD get_fattime(void)
     struct tm tm_now;
 
     now = time(RT_NULL);
-    gmtime_r(&now, &tm_now);
+    localtime_r(&now, &tm_now);
 
     fat_time = (DWORD)(tm_now.tm_year - 80) << 25 |
                (DWORD)(tm_now.tm_mon + 1)   << 21 |
