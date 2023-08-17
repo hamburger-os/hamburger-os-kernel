@@ -97,6 +97,7 @@ int *__errno(void)
 {
   return _rt_errno();
 }
+RTM_EXPORT(__errno);
 #endif
 
 int _getpid_r(struct _reent *ptr)

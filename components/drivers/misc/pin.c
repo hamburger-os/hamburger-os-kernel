@@ -111,6 +111,7 @@ rt_err_t rt_pin_attach_irq(rt_int32_t pin, rt_uint32_t mode,
     }
     return -RT_ENOSYS;
 }
+RTM_EXPORT(rt_pin_attach_irq);
 
 rt_err_t rt_pin_detach_irq(rt_int32_t pin)
 {
@@ -121,6 +122,7 @@ rt_err_t rt_pin_detach_irq(rt_int32_t pin)
     }
     return -RT_ENOSYS;
 }
+RTM_EXPORT(rt_pin_detach_irq);
 
 rt_err_t rt_pin_irq_enable(rt_base_t pin, rt_uint32_t enabled)
 {
@@ -131,6 +133,7 @@ rt_err_t rt_pin_irq_enable(rt_base_t pin, rt_uint32_t enabled)
     }
     return -RT_ENOSYS;
 }
+RTM_EXPORT(rt_pin_irq_enable);
 
 /* RT-Thread Hardware PIN APIs */
 void rt_pin_mode(rt_base_t pin, rt_base_t mode)

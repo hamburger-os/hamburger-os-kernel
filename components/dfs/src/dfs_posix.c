@@ -928,6 +928,7 @@ int access(const char *path, int amode)
     /* ignore R_OK,W_OK,X_OK condition */
     return 0;
 }
+RTM_EXPORT(access);
 
 /**
  * this function is a POSIX compliant version, which will return current

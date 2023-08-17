@@ -37,8 +37,23 @@ RTM_EXPORT(puts);
 RTM_EXPORT(printf);
 RTM_EXPORT(sprintf);
 RTM_EXPORT(snprintf);
+RTM_EXPORT(vsprintf);
+RTM_EXPORT(vsnprintf);
 
+RTM_EXPORT(fopen);
+RTM_EXPORT(fclose);
+RTM_EXPORT(fread);
 RTM_EXPORT(fwrite);
+RTM_EXPORT(fseek);
+RTM_EXPORT(fgets);
+RTM_EXPORT(fputs);
+
+RTM_EXPORT(remove);
+
+RTM_EXPORT(malloc);
+RTM_EXPORT(realloc);
+RTM_EXPORT(calloc);
+RTM_EXPORT(free);
 
 #include <setjmp.h>
 RTM_EXPORT(longjmp);
