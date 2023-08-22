@@ -328,6 +328,7 @@ const struct fal_partition *fal_partition_find(const char *name)
 
     return NULL;
 }
+RTM_EXPORT(fal_partition_find);
 
 static const struct fal_flash_dev *flash_device_find_by_part(const struct fal_partition *part)
 {
@@ -412,6 +413,7 @@ int fal_partition_read(const struct fal_partition *part, uint32_t addr, uint8_t 
 
     return ret;
 }
+RTM_EXPORT(fal_partition_read);
 
 /**
  * write data to partition
@@ -453,6 +455,7 @@ int fal_partition_write(const struct fal_partition *part, uint32_t addr, const u
 
     return ret;
 }
+RTM_EXPORT(fal_partition_write);
 
 /**
  * erase partition data
@@ -492,6 +495,7 @@ int fal_partition_erase(const struct fal_partition *part, uint32_t addr, size_t 
 
     return ret;
 }
+RTM_EXPORT(fal_partition_erase);
 
 /**
  * erase partition all data
