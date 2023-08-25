@@ -701,7 +701,7 @@ void copydir(const char *src, const char *dst)
             char *src_entry_full = NULL;
             char *dst_entry_full = NULL;
 
-            if (strcmp(dirent.d_name, "..") == 0 || strcmp(dirent.d_name, ".") == 0)
+            if (rt_strcmp(dirent.d_name, "..") == 0 || rt_strcmp(dirent.d_name, ".") == 0)
                 continue;
 
             /* build full path for each file */
