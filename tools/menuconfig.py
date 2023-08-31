@@ -306,6 +306,15 @@ def mk_rtconfig(filename):
                                 print("Unable to copy file. %s" % e)
                             except:
                                 print("Unexpected error:", sys.exc_info())
+                        elif soc == 'SOC_H7_STO_COM_2_LOARD_BOARD':
+                            try:
+                                shutil.copyfile('board/linker_scripts/stm32h743ii/link_bootloader.icf', 'board/linker_scripts/link.icf')
+                                shutil.copyfile('board/linker_scripts/stm32h743ii/link_bootloader.lds', 'board/linker_scripts/link.lds')
+                                shutil.copyfile('board/linker_scripts/stm32h743ii/link_bootloader.sct', 'board/linker_scripts/link.sct')
+                            except IOError as e:
+                                print("Unable to copy file. %s" % e)
+                            except:
+                                print("Unexpected error:", sys.exc_info())
                         print('config boot %s %s\n' % (setting[0], soc))
                 else:
                     rtconfig.write('#define %s %s\n' % (setting[0], re.findall(r"^.*?=(.*)$",line)[0]))
