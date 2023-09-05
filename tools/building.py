@@ -877,9 +877,11 @@ def EndBuilding(target, program = None):
 
     Env.AddPostAction(target, rtconfig.POST_ACTION)
     # Add addition clean files
+    Clean(target, 'rtthread.bin')
+    Clean(target, 'rt-thread.map')
     Clean(target, 'cconfig.h')
-    Clean(target, 'rtua.py')
-    Clean(target, 'rtua.pyc')
+    # Clean(target, 'rtua.py')
+    # Clean(target, 'rtua.pyc')
     Clean(target, '.sconsign.dblite')
 
     if GetOption('target'):
