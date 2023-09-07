@@ -55,7 +55,7 @@ int dfs_init(void)
     }
 
     /* clear filesystem operations table */
-    rt_memset((void *)filesystem_operation_table, 0, sizeof(filesystem_operation_table));
+    rt_memset(filesystem_operation_table, 0, sizeof(filesystem_operation_table));
     /* clear filesystem table */
     rt_memset(filesystem_table, 0, sizeof(filesystem_table));
     /* clean fd table */

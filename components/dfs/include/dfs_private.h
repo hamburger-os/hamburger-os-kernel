@@ -21,7 +21,7 @@
 /* extern variable */
 extern const struct dfs_filesystem_ops *filesystem_operation_table[];
 extern struct dfs_filesystem filesystem_table[];
-extern const struct dfs_mount_tbl mount_table[];
+extern struct dfs_mount_tbl mount_table[];
 
 extern char working_directory[];
 
