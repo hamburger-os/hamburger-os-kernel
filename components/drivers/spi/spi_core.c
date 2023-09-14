@@ -98,6 +98,7 @@ rt_err_t rt_spi_configure(struct rt_spi_device        *device,
 
     return RT_EOK;
 }
+RTM_EXPORT(rt_spi_configure);
 
 rt_err_t rt_spi_send_then_send(struct rt_spi_device *device,
                                const void           *send_buf1,
@@ -173,6 +174,7 @@ __exit:
 
     return result;
 }
+RTM_EXPORT(rt_spi_send_then_send);
 
 rt_err_t rt_spi_send_then_recv(struct rt_spi_device *device,
                                const void           *send_buf,
@@ -248,6 +250,7 @@ __exit:
 
     return result;
 }
+RTM_EXPORT(rt_spi_send_then_recv);
 
 rt_size_t rt_spi_transfer(struct rt_spi_device *device,
                           const void           *send_buf,
@@ -308,6 +311,7 @@ __exit:
 
     return result;
 }
+RTM_EXPORT(rt_spi_transfer);
 
 struct rt_spi_message *rt_spi_transfer_message(struct rt_spi_device  *device,
                                                struct rt_spi_message *message)
@@ -371,6 +375,7 @@ __exit:
 
     return index;
 }
+RTM_EXPORT(rt_spi_transfer_message);
 
 rt_err_t rt_spi_take_bus(struct rt_spi_device *device)
 {
