@@ -89,6 +89,8 @@ struct rt_touch_data
     rt_uint8_t          event;                 /* The touch event of the data */
     rt_uint8_t          track_id;              /* Track id of point */
     rt_uint8_t          width;                 /* Point of width */
+    rt_uint16_t         x;                     /* Point of x original value */
+    rt_uint16_t         y;                     /* Point of y original value */
     rt_uint16_t         x_coordinate;          /* Point of x coordinate */
     rt_uint16_t         y_coordinate;          /* Point of y coordinate */
     rt_tick_t           timestamp;             /* The timestamp when the data was received */
