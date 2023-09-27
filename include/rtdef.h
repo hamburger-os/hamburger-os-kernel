@@ -288,8 +288,10 @@ typedef int (*init_fn_t)(void);
 #define INIT_COMPONENT_EXPORT(fn)       INIT_EXPORT(fn, "4")
 /* environment initialization (mount disk, ...) */
 #define INIT_ENV_EXPORT(fn)             INIT_EXPORT(fn, "5")
-/* application initialization (rtgui application etc ...) */
-#define INIT_APP_EXPORT(fn)             INIT_EXPORT(fn, "6")
+/* application initialization (service etc ...) */
+#define INIT_SERVICE_EXPORT(fn)         INIT_EXPORT(fn, "6")
+/* application initialization (application etc ...) */
+#define INIT_APP_EXPORT(fn)             INIT_EXPORT(fn, "7")
 
 #if !defined(RT_USING_FINSH)
 /* define these to empty, even if not include finsh.h file */
@@ -343,6 +345,17 @@ typedef int (*init_fn_t)(void);
 #define RT_EINVAL                       10              /**< Invalid argument */
 
 /**@}*/
+
+/**
+ * @ingroup BasicDef
+ *
+ * @def RT_IS_ALIGN(addr, align)
+ * Return true(1) or false(0).
+ *     RT_IS_ALIGN(128, 4) is judging whether 128 aligns with 4.
+ *     The result is 1, which means 128 aligns with 4.
+ * @note If the address is NULL, false(0) will be returned
+ */
+#define RT_IS_ALIGN(addr, align) ((!(addr & (align - 1))) && (addr != RT_NULL))
 
 /**
  * @ingroup BasicDef

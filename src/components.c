@@ -41,9 +41,10 @@
  * COMPONENT_EXPORT  --> 3
  * FS_EXPORT         --> 4
  * ENV_EXPORT        --> 5
- * APP_EXPORT        --> 6
+ * SERVICE_EXPORT    --> 6
+ * APP_EXPORT        --> 7
  *
- * rti_end           --> 6.end
+ * rti_end           --> 7.end
  *
  * These automatically initialization, the driver or component initial function must
  * be defined with:
@@ -75,7 +76,7 @@ static int rti_end(void)
 {
     return 0;
 }
-INIT_EXPORT(rti_end, "6.end");
+INIT_EXPORT(rti_end, "7.end");
 
 /**
  * @brief  Onboard components initialization. In this function, the board-level

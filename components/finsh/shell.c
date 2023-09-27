@@ -797,7 +797,7 @@ int finsh_system_init(void)
         rt_thread_startup(tid);
     return 0;
 }
-INIT_APP_EXPORT(finsh_system_init);
+INIT_SERVICE_EXPORT(finsh_system_init);
 
 #endif /* RT_USING_FINSH */
 
