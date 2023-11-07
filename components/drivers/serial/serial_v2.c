@@ -436,7 +436,7 @@ static rt_size_t _serial_fifo_rx(struct rt_device        *dev,
      * the data is retrieved directly from the ringbuffer and returned */
 
 #if defined (__DCACHE_PRESENT) && (__DCACHE_PRESENT == 1U)
-    SCB_CleanInvalidateDCache_by_Addr((uint32_t *)rx_fifo->buffer, serial->config.rx_bufsz);
+    SCB_CleanInvalidateDCache_by_Addr((uint32_t *) rx_fifo->buffer, serial->config.rx_bufsz);
 #endif    
     recv_len = rt_ringbuffer_get(&(rx_fifo->rb), buffer, size);
 
@@ -666,8 +666,8 @@ static rt_err_t rt_serial_tx_enable(struct rt_device        *dev,
         if (optmode == RT_SERIAL_TX_BLOCKING_BUFFER)
         {
             /* If use RT_SERIAL_TX_BLOCKING_BUFFER, the ringbuffer is initialized */
-            tx_fifo = (struct rt_serial_tx_fifo *) rt_malloc
-                    (sizeof(struct rt_serial_tx_fifo) + serial->config.tx_bufsz);
+            tx_fifo = (struct rt_serial_tx_fifo *) rt_malloc_align
+                    (sizeof(struct rt_serial_tx_fifo) + serial->config.tx_bufsz, 32);
             RT_ASSERT(tx_fifo != RT_NULL);
 
             rt_ringbuffer_init(&(tx_fifo->rb),
@@ -683,8 +683,8 @@ static rt_err_t rt_serial_tx_enable(struct rt_device        *dev,
         {
             /* If not use RT_SERIAL_TX_BLOCKING_BUFFER,
              * the control() API is called to configure the serial device */
-            tx_fifo = (struct rt_serial_tx_fifo*) rt_malloc
-                    (sizeof(struct rt_serial_tx_fifo));
+            tx_fifo = (struct rt_serial_tx_fifo*) rt_malloc_align
+                    (sizeof(struct rt_serial_tx_fifo), 32);
             RT_ASSERT(tx_fifo != RT_NULL);
 
             serial->serial_tx = tx_fifo;
@@ -710,8 +710,8 @@ static rt_err_t rt_serial_tx_enable(struct rt_device        *dev,
     /* When using RT_SERIAL_TX_NON_BLOCKING, ringbuffer needs to be initialized,
      * and initialize the tx_fifo->activated value is RT_FALSE.
      */
-    tx_fifo = (struct rt_serial_tx_fifo *) rt_malloc
-            (sizeof(struct rt_serial_tx_fifo) + serial->config.tx_bufsz);
+    tx_fifo = (struct rt_serial_tx_fifo *) rt_malloc_align
+            (sizeof(struct rt_serial_tx_fifo) + serial->config.tx_bufsz, 32);
     RT_ASSERT(tx_fifo != RT_NULL);
 
     tx_fifo->activated = RT_FALSE;
@@ -771,8 +771,8 @@ static rt_err_t rt_serial_rx_enable(struct rt_device        *dev,
     if (serial->config.rx_bufsz < RT_SERIAL_RX_MINBUFSZ)
         serial->config.rx_bufsz = RT_SERIAL_RX_MINBUFSZ;
 
-    rx_fifo = (struct rt_serial_rx_fifo *) rt_malloc
-            (sizeof(struct rt_serial_rx_fifo) + serial->config.rx_bufsz);
+    rx_fifo = (struct rt_serial_rx_fifo *) rt_malloc_align
+            (sizeof(struct rt_serial_rx_fifo) + serial->config.rx_bufsz, 32);
 
     RT_ASSERT(rx_fifo != RT_NULL);
     rt_ringbuffer_init(&(rx_fifo->rb), rx_fifo->buffer, serial->config.rx_bufsz);
@@ -845,7 +845,7 @@ static rt_err_t rt_serial_rx_disable(struct rt_device        *dev,
 
     rx_fifo = (struct rt_serial_rx_fifo *)serial->serial_rx;
     RT_ASSERT(rx_fifo != RT_NULL);
-    rt_free(rx_fifo);
+    rt_free_align(rx_fifo);
     serial->serial_rx = RT_NULL;
 
     return RT_EOK;
@@ -894,7 +894,7 @@ static rt_err_t rt_serial_tx_disable(struct rt_device        *dev,
                             (void *)RT_SERIAL_TX_BLOCKING);
     } while (0);
 
-    rt_free(tx_fifo);
+    rt_free_align(tx_fifo);
     serial->serial_tx = RT_NULL;
 
     return RT_EOK;

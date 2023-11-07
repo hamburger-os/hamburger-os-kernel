@@ -20,8 +20,9 @@
 #include <unistd.h>
 #include <sys/stat.h>
 #include <sys/statfs.h>
-#include <board.h>
 #endif
+
+#include "board.h"
 
 #define DBG_TAG    "DLMD"
 #define DBG_LVL    DBG_INFO
