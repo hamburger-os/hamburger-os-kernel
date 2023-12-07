@@ -173,6 +173,7 @@ def PrepareBuilding(env, root_directory, has_libcpu=False, remove_components = [
     tgt_dict = {'mdk':('keil', 'armcc'),
                 'mdk4':('keil', 'armcc'),
                 'mdk5':('keil', 'armcc'),
+                'mdk5-lib':('keil', 'armcc'),
                 'iar':('iar', 'iar'),
                 'vs':('msvc', 'cl'),
                 'vs2012':('msvc', 'cl'),
@@ -810,6 +811,10 @@ def GenTargetProject(program = None):
     if GetOption('target') == 'mdk5':
         from keil import MDK5Project
         MDK5Project('project.uvprojx', Projects)
+
+    if GetOption('target') == 'mdk5-lib':
+        from keil import MDK5ProjectLib
+        MDK5ProjectLib('project_lib.uvprojx', Projects)
 
     if GetOption('target') == 'iar':
         from iar import IARProject

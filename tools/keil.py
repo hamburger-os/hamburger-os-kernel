@@ -319,6 +319,25 @@ def MDK5Project(target, script):
         import shutil
         shutil.copy2('template.uvoptx', 'project.uvoptx')
 
+def MDK5ProjectLib(target, script):
+
+    if os.path.isfile('template_lib.uvprojx') is False:
+        print ('Warning: The template_lib project file [template_lib.uvprojx] not found!')
+        return
+
+    template_tree = etree.parse('template_lib.uvprojx')
+
+    MDK45Project(template_tree, target, script)
+
+    # remove project.uvopt file
+    project_uvopt = os.path.abspath(target).replace('uvprojx', 'uvoptx')
+    if os.path.isfile(project_uvopt):
+        os.unlink(project_uvopt)
+    # copy uvopt file
+    if os.path.exists('template_lib.uvoptx'):
+        import shutil
+        shutil.copy2('template_lib.uvoptx', 'project_lib.uvoptx')
+
 def MDKProject(target, script):
     template = open('template.Uv2', "r")
     lines = template.readlines()
