@@ -25,11 +25,13 @@
 import os
 import sys
 import string
+# import mdklib
 
 import xml.etree.ElementTree as etree
 from xml.etree.ElementTree import SubElement
 from utils import _make_path_relative
 from utils import xml_indent
+from mdklib import MDKLibMVCPPH
 
 fs_encoding = sys.getfilesystemencoding()
 
@@ -266,6 +268,9 @@ def MDK45Project(tree, target, script):
                     else:
                         group_tree = MDK4AddGroupForFN(ProjectFiles, groups, group['name'], lib_path, project_path)
 
+    if target == "project_lib.uvprojx":
+        MDKLibMVCPPH(CPPPATH)
+        
     # write include path, definitions and link flags
     IncludePath = tree.find('Targets/Target/TargetOption/TargetArmAds/Cads/VariousControls/IncludePath')
     IncludePath.text = ';'.join([_make_path_relative(project_path, os.path.normpath(i)) for i in CPPPATH])
