@@ -34,7 +34,7 @@ def SFileToDFile(source_file, file_class, dest_file):
         file_path = os.path.join(source_file, filenames)
         if os.path.isfile(file_path):
             if file_path.endswith(file_class):
-                print('copy %s'% file_path + ' To ' + dest_file)
+                # print('copy %s'% file_path + ' To ' + dest_file)
                 shutil.copy2(file_path, dest_file)
 
 def MDKLibMVCPPH(all_path):
