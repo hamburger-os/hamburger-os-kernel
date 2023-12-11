@@ -6,6 +6,7 @@ import shutil
 def MDKLIBCreatDir(all_path):
     swos2_lib_path = "swos2_lib/lib"
     head_path = []
+    dir_type = ''
 
     if not os.path.exists(swos2_lib_path):
         os.makedirs(swos2_lib_path)
@@ -13,11 +14,25 @@ def MDKLIBCreatDir(all_path):
         print(swos2_lib_path + "already exists")
 
     for path in all_path:
+        if(path.find("swos2-sdk") >= 0):
+            dir_type = 'swos2-sdk'
+            break
+        elif(path.find("swos2-bsp") >= 0):
+            dir_type = 'swos2-bsp'
+            break
+        else:
+            dir_type = 'dir error'
+
+    if dir_type == 'dir error':
+        print("------swos2 dir error------")
+        return "dir error"
+
+    for path in all_path:
         path = path.replace('\\', '/')
-        index = path.find("swos2-bsp")
+        index = path.find(dir_type)
         # print("index = %d", index)
         if index >= 0:
-            index = index + len("swos2-bsp") + 1
+            index = index + len(dir_type) + 1
             head_path.append("swos2_lib/" + path[index:])
         else:
             head_path.append("swos2_lib/" + path)
@@ -54,6 +69,9 @@ def MDKLibMVCPPH(all_path):
             full_head_path.append(path)
 
     head_path = MDKLIBCreatDir(full_head_path)
+
+    if head_path == "dir error":
+        return "dir error"
 
     for src_path, dest_path in zip(full_head_path, head_path):
         # print(src_path, ':', dest_path)
