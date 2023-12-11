@@ -82,10 +82,23 @@ def MDK45ProjectByLib(target, link_modules):
     new_file.close()
 
 def MDKLibProject(objects):
-    if os.path.isfile('project.uvprojx'):
-        shutil.copy('project.uvprojx', 'swos2_lib')
-    if os.path.isfile('project.uvoptx'):
-        shutil.copy('project.uvoptx', 'swos2_lib')
 
-    modules = ReadFileType('build/keil_lib/Obj', '.o')
-    MDK45ProjectByLib('swos2_lib/project.uvprojx', modules)
+    lib_path = '.\\build\\keil_lib\\Obj\\rt-thread.lib'
+
+    print("--------keil compile lib--------")
+    os.system('c:\Keil_v5\UV4\UV4.exe -r .\project_lib.uvprojx -j0')
+
+    if os.path.exists(lib_path):
+        shutil.copy2(lib_path, '.\swos2_lib\lib')
+        if os.path.isfile('project.uvprojx'):
+            shutil.copy('project.uvprojx', 'swos2_lib')
+        if os.path.isfile('project.uvoptx'):
+            shutil.copy('project.uvoptx', 'swos2_lib')
+
+        modules = ReadFileType('build/keil_lib/Obj', '.o')
+        MDK45ProjectByLib('swos2_lib/project.uvprojx', modules)
+    else:
+        print('---can not find ' + lib_path + '---')
+
+    print("--------swos2 lib project creat ok--------")
+
