@@ -176,6 +176,8 @@ def mk_rtconfig(filename):
                             shutil.copyfile('project/stm32h743ii/rtconfig.py', 'rtconfig.py')
                             shutil.copyfile('project/stm32h743ii/template.uvoptx', 'template.uvoptx')
                             shutil.copyfile('project/stm32h743ii/template.uvprojx', 'template.uvprojx')
+                            shutil.copyfile('project/stm32h743ii/template_lib.uvoptx', 'template_lib.uvoptx')
+                            shutil.copyfile('project/stm32h743ii/template_lib.uvprojx', 'template_lib.uvprojx')
                         except IOError as e:
                             print("Unable to copy file. %s" % e)
                         except:
