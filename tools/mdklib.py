@@ -11,28 +11,21 @@ def MDKLIBCreatDir(all_path):
     if not os.path.exists(swos2_lib_path):
         os.makedirs(swos2_lib_path)
     else:
-        print(swos2_lib_path + "already exists")
+        print(swos2_lib_path + " already exists")
 
-    for path in all_path:
-        if(path.find("swos2-sdk") >= 0):
-            dir_type = 'swos2-sdk'
-            break
-        elif(path.find("swos2-bsp") >= 0):
-            dir_type = 'swos2-bsp'
-            break
-        else:
-            dir_type = 'dir error'
-
-    if dir_type == 'dir error':
-        print("------swos2 dir error------")
-        return "dir error"
+    current_path = os.path.abspath(os.getcwd())
+    parent_path = os.path.dirname(current_path)
+    if not os.path.exists('../mkrootfs.bat'):
+        dir_name = os.path.basename(current_path)
+    else:
+        dir_name = os.path.basename(parent_path)
 
     for path in all_path:
         path = path.replace('\\', '/')
-        index = path.find(dir_type)
+        index = path.find(dir_name)
         # print("index = %d", index)
         if index >= 0:
-            index = index + len(dir_type) + 1
+            index = index + len(dir_name) + 1
             head_path.append("swos2_lib/" + path[index:])
         else:
             head_path.append("swos2_lib/" + path)
