@@ -184,21 +184,15 @@ def mk_rtconfig(filename):
                             print("Unexpected error:", sys.exc_info())
                         soc = setting[0]
                         print('config mcu %s\n' % setting[0])
-                    elif setting[0] == 'BSP_USING_BOOTAPP':
+                    elif setting[0] == 'BSP_USING_BOOTAPP' or setting[0] == 'BSP_USING_BOOTLOADER' or setting[0] == 'BSP_USING_NOBOOT':
+                        mode = setting[0]
+                        print('config boot %s %s\n' % (setting[0], soc))
+                    elif setting[0] == 'BSP_USING_JUMP_0x20000' and mode == "BSP_USING_BOOTAPP":
                         if soc == 'SOC_M4COREBOARD_NOSRAM' or soc == 'SOC_M4COREBOARD_SRAM' or soc == 'SOC_M4COREBOARD_SDRAM':
                             try:
                                 shutil.copyfile('board/linker_scripts/stm32f429ii/link_bootloader.icf', 'board/linker_scripts/link.icf')
                                 shutil.copyfile('board/linker_scripts/stm32f429ii/link_bootloader.lds', 'board/linker_scripts/link.lds')
                                 shutil.copyfile('board/linker_scripts/stm32f429ii/link_bootloader.sct', 'board/linker_scripts/link.sct')
-                            except IOError as e:
-                                print("Unable to copy file. %s" % e)
-                            except:
-                                print("Unexpected error:", sys.exc_info())
-                        elif soc == 'SOC_STM32F437IIT6':
-                            try:
-                                shutil.copyfile('board/linker_scripts/stm32f437ii/link_bootloader.icf', 'board/linker_scripts/link.icf')
-                                shutil.copyfile('board/linker_scripts/stm32f437ii/link_bootloader.lds', 'board/linker_scripts/link.lds')
-                                shutil.copyfile('board/linker_scripts/stm32f437ii/link_bootloader.sct', 'board/linker_scripts/link.sct')
                             except IOError as e:
                                 print("Unable to copy file. %s" % e)
                             except:
@@ -212,7 +206,27 @@ def mk_rtconfig(filename):
                                 print("Unable to copy file. %s" % e)
                             except:
                                 print("Unexpected error:", sys.exc_info())
-                        print('config boot %s %s\n' % (setting[0], soc))
+                        print('config jump %s %s\n' % (setting[0], soc))
+                    elif setting[0] == 'BSP_USING_JUMP_0x80000' and mode == "BSP_USING_BOOTAPP":
+                        if soc == 'SOC_M4COREBOARD_NOSRAM' or soc == 'SOC_M4COREBOARD_SRAM' or soc == 'SOC_M4COREBOARD_SDRAM':
+                            try:
+                                shutil.copyfile('board/linker_scripts/stm32f429ii/link_bootloader512.icf', 'board/linker_scripts/link.icf')
+                                shutil.copyfile('board/linker_scripts/stm32f429ii/link_bootloader512.lds', 'board/linker_scripts/link.lds')
+                                shutil.copyfile('board/linker_scripts/stm32f429ii/link_bootloader512.sct', 'board/linker_scripts/link.sct')
+                            except IOError as e:
+                                print("Unable to copy file. %s" % e)
+                            except:
+                                print("Unexpected error:", sys.exc_info())
+                        elif soc == 'SOC_H7COREBOARD_NOSRAM' or soc == 'SOC_H7COREBOARD_SDRAM' or soc == 'SOC_H7_STO_RECORD_BOARD' or soc == 'SOC_H7_STO_COM_2_LOARD_BOARD' or soc == 'SOC_H7_STO_COM_1_LOARD_BOARD' or soc == 'SOC_H7_STO_COM_CHILD_BOARD':
+                            try:
+                                shutil.copyfile('board/linker_scripts/stm32h743ii/link_bootloader512.icf', 'board/linker_scripts/link.icf')
+                                shutil.copyfile('board/linker_scripts/stm32h743ii/link_bootloader512.lds', 'board/linker_scripts/link.lds')
+                                shutil.copyfile('board/linker_scripts/stm32h743ii/link_bootloader512.sct', 'board/linker_scripts/link.sct')
+                            except IOError as e:
+                                print("Unable to copy file. %s" % e)
+                            except:
+                                print("Unexpected error:", sys.exc_info())
+                        print('config jump %s %s\n' % (setting[0], soc))
                 else:
                     rtconfig.write('#define %s %s\n' % (setting[0], re.findall(r"^.*?=(.*)$",line)[0]))
 
