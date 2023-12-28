@@ -644,6 +644,7 @@ static void copyfile(const char *src, const char *dst)
 
         return;
     }
+    dfs_file_unlink(dst);
     if (dfs_file_open(&fd, dst, O_WRONLY | O_CREAT | O_TRUNC) < 0)
     {
         rt_free(block_ptr);
