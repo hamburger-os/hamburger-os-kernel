@@ -122,22 +122,7 @@ def mk_rtconfig(filename):
                             print("Unexpected error:", sys.exc_info())
                         soc = setting[0]
                         print('config mcu %s\n' % setting[0])
-                    elif setting[0] == 'SOC_STM32F427ZGT6':
-                        try:
-                            shutil.copyfile('board/linker_scripts/stm32f427zg/link.icf', 'board/linker_scripts/link.icf')
-                            shutil.copyfile('board/linker_scripts/stm32f427zg/link.lds', 'board/linker_scripts/link.lds')
-                            shutil.copyfile('board/linker_scripts/stm32f427zg/link.sct', 'board/linker_scripts/link.sct')
-                            shutil.copyfile('project/stm32f427zg/.cproject', '.cproject')
-                            shutil.copyfile('project/stm32f427zg/rtconfig.py', 'rtconfig.py')
-                            shutil.copyfile('project/stm32f427zg/template.uvoptx', 'template.uvoptx')
-                            shutil.copyfile('project/stm32f427zg/template.uvprojx', 'template.uvprojx')
-                        except IOError as e:
-                            print("Unable to copy file. %s" % e)
-                        except:
-                            print("Unexpected error:", sys.exc_info())
-                        soc = setting[0]
-                        print('config mcu %s\n' % setting[0])
-                    elif setting[0] == 'SOC_M4COREBOARD_NOSRAM' or setting[0] == 'SOC_M4COREBOARD_SRAM' or setting[0] == 'SOC_M4COREBOARD_SDRAM':
+                    elif setting[0] == 'SOC_M4COREBOARD_NOSRAM' or setting[0] == 'SOC_M4COREBOARD_SRAM' or setting[0] == 'SOC_M4COREBOARD_SDRAM' or setting[0] == 'SOC_M4COREBOARD_VOICE':
                         try:
                             shutil.copyfile('board/linker_scripts/stm32f429ii/link.icf', 'board/linker_scripts/link.icf')
                             shutil.copyfile('board/linker_scripts/stm32f429ii/link.lds', 'board/linker_scripts/link.lds')
@@ -146,21 +131,6 @@ def mk_rtconfig(filename):
                             shutil.copyfile('project/stm32f429ii/rtconfig.py', 'rtconfig.py')
                             shutil.copyfile('project/stm32f429ii/template.uvoptx', 'template.uvoptx')
                             shutil.copyfile('project/stm32f429ii/template.uvprojx', 'template.uvprojx')
-                        except IOError as e:
-                            print("Unable to copy file. %s" % e)
-                        except:
-                            print("Unexpected error:", sys.exc_info())
-                        soc = setting[0]
-                        print('config mcu %s\n' % setting[0])
-                    elif setting[0] == 'SOC_STM32F437IIT6':
-                        try:
-                            shutil.copyfile('board/linker_scripts/stm32f437ii/link.icf', 'board/linker_scripts/link.icf')
-                            shutil.copyfile('board/linker_scripts/stm32f437ii/link.lds', 'board/linker_scripts/link.lds')
-                            shutil.copyfile('board/linker_scripts/stm32f437ii/link.sct', 'board/linker_scripts/link.sct')
-                            shutil.copyfile('project/stm32f437ii/.cproject', '.cproject')
-                            shutil.copyfile('project/stm32f437ii/rtconfig.py', 'rtconfig.py')
-                            shutil.copyfile('project/stm32f437ii/template.uvoptx', 'template.uvoptx')
-                            shutil.copyfile('project/stm32f437ii/template.uvprojx', 'template.uvprojx')
                         except IOError as e:
                             print("Unable to copy file. %s" % e)
                         except:
@@ -188,7 +158,7 @@ def mk_rtconfig(filename):
                         mode = setting[0]
                         print('config boot %s %s\n' % (setting[0], soc))
                     elif setting[0] == 'BSP_USING_JUMP_0x20000' and mode == "BSP_USING_BOOTAPP":
-                        if soc == 'SOC_M4COREBOARD_NOSRAM' or soc == 'SOC_M4COREBOARD_SRAM' or soc == 'SOC_M4COREBOARD_SDRAM':
+                        if soc == 'SOC_M4COREBOARD_NOSRAM' or soc == 'SOC_M4COREBOARD_SRAM' or soc == 'SOC_M4COREBOARD_SDRAM' or soc == 'SOC_M4COREBOARD_VOICE':
                             try:
                                 shutil.copyfile('board/linker_scripts/stm32f429ii/link_bootloader.icf', 'board/linker_scripts/link.icf')
                                 shutil.copyfile('board/linker_scripts/stm32f429ii/link_bootloader.lds', 'board/linker_scripts/link.lds')
@@ -208,7 +178,7 @@ def mk_rtconfig(filename):
                                 print("Unexpected error:", sys.exc_info())
                         print('config jump %s %s\n' % (setting[0], soc))
                     elif setting[0] == 'BSP_USING_JUMP_0x80000' and mode == "BSP_USING_BOOTAPP":
-                        if soc == 'SOC_M4COREBOARD_NOSRAM' or soc == 'SOC_M4COREBOARD_SRAM' or soc == 'SOC_M4COREBOARD_SDRAM':
+                        if soc == 'SOC_M4COREBOARD_NOSRAM' or soc == 'SOC_M4COREBOARD_SRAM' or soc == 'SOC_M4COREBOARD_SDRAM' or soc == 'SOC_M4COREBOARD_VOICE':
                             try:
                                 shutil.copyfile('board/linker_scripts/stm32f429ii/link_bootloader512.icf', 'board/linker_scripts/link.icf')
                                 shutil.copyfile('board/linker_scripts/stm32f429ii/link_bootloader512.lds', 'board/linker_scripts/link.lds')
