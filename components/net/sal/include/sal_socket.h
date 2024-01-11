@@ -32,6 +32,11 @@ typedef uint8_t sa_family_t;
 typedef uint16_t in_port_t;
 #endif
 
+/* Set socket options argument */
+struct ifreq {
+    char ifr_name[6]; /* Interface name */
+};
+
 /* Socket protocol types (TCP/UDP/RAW) */
 #define SOCK_STREAM     1
 #define SOCK_DGRAM      2
@@ -63,6 +68,7 @@ typedef uint16_t in_port_t;
 #define SO_TYPE         0x1008 /* get socket type */
 #define SO_CONTIMEO     0x1009 /* Unimplemented: connect timeout */
 #define SO_NO_CHECK     0x100a /* don't create UDP checksum */
+#define SO_BINDTODEVICE 0x100b /* bind to device */
 
 /* Level number for (get/set)sockopt() to apply to socket itself */
 #define  SOL_SOCKET     0xfff    /* options for socket level */
