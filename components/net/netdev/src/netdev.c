@@ -1067,6 +1067,7 @@ int netdev_cmd_ping(char* target_name, char *netdev_name, rt_uint32_t times, rt_
     struct netdev *netdev = RT_NULL;
     struct netdev_ping_resp ping_resp;
     rt_uint32_t index;
+    rt_uint32_t receive = 0;
     int ret = 0;
 
     if (size == 0)
@@ -1110,6 +1111,7 @@ int netdev_cmd_ping(char* target_name, char *netdev_name, rt_uint32_t times, rt_
         }
     }
 
+    rt_tick_t start_ms = rt_tick_get_millisecond();
     for (index = 0; index < times; index++)
     {
         int delay_tick = 0;
@@ -1140,6 +1142,7 @@ int netdev_cmd_ping(char* target_name, char *netdev_name, rt_uint32_t times, rt_
             {
                 rt_kprintf("%d bytes from %s icmp_seq=%d ttl=%d time=%d ms\n",
                             ping_resp.data_len, inet_ntoa(ping_resp.ip_addr), index, ping_resp.ttl, ping_resp.ticks);
+                receive++;
             }
         }
 
@@ -1147,6 +1150,8 @@ int netdev_cmd_ping(char* target_name, char *netdev_name, rt_uint32_t times, rt_
         delay_tick = ((rt_tick_get() - start_tick) > NETDEV_PING_DELAY) || (index == times) ? 0 : NETDEV_PING_DELAY;
         rt_thread_delay(delay_tick);
     }
+    rt_kprintf("--- %s ping statistics ---\n%d packets transmitted, %d received, %d%% packet loss, time %dms\n",
+                inet_ntoa(ping_resp.ip_addr), times, receive, (times - receive) * 100 / times, rt_tick_get_millisecond() - start_ms);
 
     return RT_EOK;
 }
