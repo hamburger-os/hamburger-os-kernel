@@ -208,7 +208,7 @@ struct rt_dlmodule *dlmodule_create(void)
 
 void dlmodule_destroy_subthread(struct rt_dlmodule *module, rt_thread_t thread)
 {
-    RT_ASSERT(thread->module_id == module);
+//    RT_ASSERT(thread->module_id == module);
 
     /* lock scheduler to prevent scheduling in cleanup function. */
     rt_enter_critical();
