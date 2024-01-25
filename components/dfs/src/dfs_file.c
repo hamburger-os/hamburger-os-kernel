@@ -672,7 +672,7 @@ static void copyfile(const char *src, const char *dst)
         }
     }
     while (read_bytes > 0);
-    rt_kprintf("copyfile '%s'\n", src);
+    LOG_I("copyfile '%s'", src);
 
     dfs_file_close(&src_fd);
     dfs_file_close(&fd);
