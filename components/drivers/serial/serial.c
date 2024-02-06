@@ -64,13 +64,13 @@ static rt_err_t serial_fops_rx_ind(rt_device_t dev, rt_size_t size)
 }
 
 /* fops for serial */
-static int serial_fops_open(struct dfs_fd *fd)
+static int serial_fops_open(struct dfs_file *fd)
 {
     rt_err_t ret = 0;
     rt_uint16_t flags = 0;
     rt_device_t device;
 
-    device = (rt_device_t)fd->data;
+    device = (rt_device_t)fd->vnode->data;
     RT_ASSERT(device != RT_NULL);
 
     switch (fd->flags & O_ACCMODE)
@@ -100,11 +100,11 @@ static int serial_fops_open(struct dfs_fd *fd)
     return ret;
 }
 
-static int serial_fops_close(struct dfs_fd *fd)
+static int serial_fops_close(struct dfs_file *fd)
 {
     rt_device_t device;
 
-    device = (rt_device_t)fd->data;
+    device = (rt_device_t)fd->vnode->data;
 
     rt_device_set_rx_indicate(device, RT_NULL);
     rt_device_close(device);
@@ -112,13 +112,13 @@ static int serial_fops_close(struct dfs_fd *fd)
     return 0;
 }
 
-static int serial_fops_ioctl(struct dfs_fd *fd, int cmd, void *args)
+static int serial_fops_ioctl(struct dfs_file *fd, int cmd, void *args)
 {
     rt_device_t device;
     int flags = (int)(rt_base_t)args;
     int mask  = O_NONBLOCK | O_APPEND;
 
-    device = (rt_device_t)fd->data;
+    device = (rt_device_t)fd->vnode->data;
     switch (cmd)
     {
     case FIONREAD:
@@ -135,12 +135,17 @@ static int serial_fops_ioctl(struct dfs_fd *fd, int cmd, void *args)
     return rt_device_control(device, cmd, args);
 }
 
-static int serial_fops_read(struct dfs_fd *fd, void *buf, size_t count)
+#ifdef RT_USING_DFS_V2
+static ssize_t serial_fops_read(struct dfs_file *fd, void *buf, size_t count, off_t *pos)
+#else
+static ssize_t serial_fops_read(struct dfs_file *fd, void *buf, size_t count)
+#endif
 {
     int size = 0;
     rt_device_t device;
+    int wait_ret;
 
-    device = (rt_device_t)fd->data;
+    device = (rt_device_t)fd->vnode->data;
 
     do
     {
@@ -153,7 +158,11 @@ static int serial_fops_read(struct dfs_fd *fd, void *buf, size_t count)
                 break;
             }
 
-            rt_wqueue_wait(&(device->wait_queue), 0, RT_WAITING_FOREVER);
+            wait_ret = rt_wqueue_wait_interruptible(&(device->wait_queue), 0, RT_WAITING_FOREVER);
+            if (wait_ret != RT_EOK)
+            {
+                break;
+        }
         }
     }while (size <= 0);
 
@@ -164,22 +173,26 @@ static int serial_fops_read(struct dfs_fd *fd, void *buf, size_t count)
     return size;
 }
 
-static int serial_fops_write(struct dfs_fd *fd, const void *buf, size_t count)
+#ifdef RT_USING_DFS_V2
+static ssize_t serial_fops_write(struct dfs_file *fd, const void *buf, size_t count, off_t *pos)
+#else
+static ssize_t serial_fops_write(struct dfs_file *fd, const void *buf, size_t count)
+#endif
 {
     rt_device_t device;
 
-    device = (rt_device_t)fd->data;
+    device = (rt_device_t)fd->vnode->data;
     return rt_device_write(device, -1, buf, count);
 }
 
-static int serial_fops_poll(struct dfs_fd *fd, struct rt_pollreq *req)
+static int serial_fops_poll(struct dfs_file *fd, struct rt_pollreq *req)
 {
     int mask = 0;
     int flags = 0;
     rt_device_t device;
     struct rt_serial_device *serial;
 
-    device = (rt_device_t)fd->data;
+    device = (rt_device_t)fd->vnode->data;
     RT_ASSERT(device != RT_NULL);
 
     serial = (struct rt_serial_device *)device;
@@ -206,15 +219,12 @@ static int serial_fops_poll(struct dfs_fd *fd, struct rt_pollreq *req)
 
 static const struct dfs_file_ops _serial_fops =
 {
-    serial_fops_open,
-    serial_fops_close,
-    serial_fops_ioctl,
-    serial_fops_read,
-    serial_fops_write,
-    RT_NULL, /* flush */
-    RT_NULL, /* lseek */
-    RT_NULL, /* getdents */
-    serial_fops_poll,
+    .open   = serial_fops_open,
+    .close  = serial_fops_close,
+    .ioctl  = serial_fops_ioctl,
+    .read   = serial_fops_read,
+    .write  = serial_fops_write,
+    .poll   = serial_fops_poll,
 };
 #endif /* RT_USING_POSIX_STDIO */
 
@@ -349,10 +359,9 @@ rt_inline int _serial_int_tx(struct rt_serial_device *serial, const rt_uint8_t *
             }
         }
 
-        if (serial->ops->putc(serial, *(char*)data) == -1)
+        while (serial->ops->putc(serial, *(char*)data) == -1)
         {
             rt_completion_wait(&(tx->completion), RT_WAITING_FOREVER);
-            continue;
         }
 
         data ++; length --;
@@ -376,7 +385,7 @@ static void _serial_check_buffer_size(void)
 }
 
 #if defined(RT_USING_POSIX_STDIO) || defined(RT_SERIAL_USING_DMA)
-static rt_size_t _serial_fifo_calc_recved_len(struct rt_serial_device *serial)
+static rt_ssize_t _serial_fifo_calc_recved_len(struct rt_serial_device *serial)
 {
     struct rt_serial_rx_fifo *rx_fifo = (struct rt_serial_rx_fifo *) serial->serial_rx;
 
@@ -408,7 +417,7 @@ static rt_size_t _serial_fifo_calc_recved_len(struct rt_serial_device *serial)
  *
  * @return length
  */
-static rt_size_t rt_dma_calc_recved_len(struct rt_serial_device *serial)
+static rt_ssize_t rt_dma_calc_recved_len(struct rt_serial_device *serial)
 {
     return _serial_fifo_calc_recved_len(serial);
 }
@@ -593,6 +602,8 @@ static rt_err_t rt_serial_init(struct rt_device *dev)
     /* initialize rx/tx */
     serial->serial_rx = RT_NULL;
     serial->serial_tx = RT_NULL;
+
+    rt_memset(&serial->rx_notify, 0, sizeof(struct rt_device_notify));
 
     /* apply configuration */
     if (serial->ops->configure)
@@ -843,7 +854,7 @@ static rt_err_t rt_serial_close(struct rt_device *dev)
     return RT_EOK;
 }
 
-static rt_size_t rt_serial_read(struct rt_device *dev,
+static rt_ssize_t rt_serial_read(struct rt_device *dev,
                                 rt_off_t          pos,
                                 void             *buffer,
                                 rt_size_t         size)
@@ -869,7 +880,7 @@ static rt_size_t rt_serial_read(struct rt_device *dev,
     return _serial_poll_rx(serial, (rt_uint8_t *)buffer, size);
 }
 
-static rt_size_t rt_serial_write(struct rt_device *dev,
+static rt_ssize_t rt_serial_write(struct rt_device *dev,
                                  rt_off_t          pos,
                                  const void       *buffer,
                                  rt_size_t         size)
@@ -897,7 +908,7 @@ static rt_size_t rt_serial_write(struct rt_device *dev,
     }
 }
 
-#ifdef RT_USING_POSIX_TERMIOS
+#if defined(RT_USING_POSIX_TERMIOS) && !defined(RT_USING_TTY)
 struct speed_baudrate_item
 {
     speed_t speed;
@@ -915,6 +926,7 @@ static const struct speed_baudrate_item _tbl[] =
     {B115200, BAUD_RATE_115200},
     {B230400, BAUD_RATE_230400},
     {B460800, BAUD_RATE_460800},
+    {B500000, BAUD_RATE_500000},
     {B921600, BAUD_RATE_921600},
     {B2000000, BAUD_RATE_2000000},
     {B3000000, BAUD_RATE_3000000},
@@ -1031,8 +1043,21 @@ static rt_err_t rt_serial_control(struct rt_device *dev,
                 }
             }
             break;
+        case RT_DEVICE_CTRL_NOTIFY_SET:
+            if (args)
+            {
+                rt_memcpy(&serial->rx_notify, args, sizeof(struct rt_device_notify));
+            }
+            break;
+
+        case RT_DEVICE_CTRL_CONSOLE_OFLAG:
+            if (args)
+            {
+                *(rt_uint16_t*)args = RT_DEVICE_FLAG_RDWR | RT_DEVICE_FLAG_INT_RX | RT_DEVICE_FLAG_STREAM;
+            }
+            break;
 #ifdef RT_USING_POSIX_STDIO
-#ifdef RT_USING_POSIX_TERMIOS
+#if defined(RT_USING_POSIX_TERMIOS) && !defined(RT_USING_TTY)
         case TCGETA:
             {
                 struct termios *tio = (struct termios*)args;
@@ -1115,7 +1140,7 @@ static rt_err_t rt_serial_control(struct rt_device *dev,
             break;
         case TCFLSH:
             {
-                int queue = (int)args;
+                int queue = (int)(rt_ubase_t)args;
 
                 _tc_flush(serial, queue);
             }
@@ -1347,6 +1372,10 @@ void rt_hw_serial_isr(struct rt_serial_device *serial, int event)
                 {
                     serial->parent.rx_indicate(&serial->parent, rx_length);
                 }
+            }
+            if (serial->rx_notify.notify)
+            {
+                serial->rx_notify.notify(serial->rx_notify.dev);
             }
             break;
         }

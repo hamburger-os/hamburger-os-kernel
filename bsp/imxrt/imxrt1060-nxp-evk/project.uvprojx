@@ -334,9 +334,9 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls>-fno-common -fdata-sections -ffreestanding -fno-builtin -mthumb</MiscControls>
-              <Define>__STDC_LIMIT_MACROS, XIP_BOOT_HEADER_DCD_ENABLE=1, SKIP_SYSCLK_INIT, RT_USING_LIBC, __FPU_PRESENT=1, __CLK_TCK=RT_TICK_PER_SECOND, __RTTHREAD__, FSL_SDK_DRIVER_QUICK_ACCESS_ENABLE=1, DATA_SECTION_IS_CACHEABLE=1, XIP_BOOT_HEADER_ENABLE=1, FSL_SDK_ENABLE_DRIVER_CACHE_CONTROL=1, CPU_MIMXRT1062DVL6A, XIP_EXTERNAL_FLASH=1, EVK_MCIMXRM, RT_USING_ARM_LIBC</Define>
+              <Define>DATA_SECTION_IS_CACHEABLE=0, __STDC_LIMIT_MACROS, RT_USING_ARMLIBC, __RTTHREAD__, SKIP_SYSCLK_INIT, RT_USING_LIBC, __FPU_PRESENT=1, __CLK_TCK=RT_TICK_PER_SECOND, FSL_SDK_DRIVER_QUICK_ACCESS_ENABLE=1, XIP_BOOT_HEADER_ENABLE=1, FSL_SDK_ENABLE_DRIVER_CACHE_CONTROL=1, CPU_MIMXRT1062DVL6A, XIP_EXTERNAL_FLASH=1, EVK_MCIMXRM</Define>
               <Undefine />
-              <IncludePath>applications;..\..\..\components\libc\compilers\common\include;..\..\..\components\libc\compilers\common\extension;..\..\..\components\libc\compilers\common\extension\fcntl\octal;..\..\..\libcpu\arm\common;..\..\..\libcpu\arm\cortex-m7;..\..\..\components\drivers\include;..\..\..\components\drivers\include;..\..\..\components\drivers\include;..\..\..\components\drivers\include;..\..\..\components\drivers\include;board;board\MCUX_Config;board\ports;..\libraries\drivers;..\..\..\components\finsh;.;..\..\..\include;..\libraries\MIMXRT1060\CMSIS\Include;..\libraries\MIMXRT1060\MIMXRT1060;..\libraries\MIMXRT1060\MIMXRT1060\drivers;..\..\..\components\libc\posix\io\poll;..\..\..\components\libc\posix\io\stdio;..\..\..\components\libc\posix\ipc;xip</IncludePath>
+              <IncludePath>..\..\..\components\drivers\include;..\..\..\components\libc\posix\io\poll;..\..\..\components\libc\compilers\common\extension;..\..\..\components\libc\compilers\common\include;..\libraries\MIMXRT1060\MIMXRT1060;..\..\..\libcpu\arm\cortex-m7;..\..\..\include;board;.;..\..\..\components\drivers\include;..\..\..\components\drivers\include;applications;board\MCUX_Config;..\..\..\components\drivers\include;..\..\..\components\drivers\include;xip;..\..\..\components\libc\posix\ipc;..\libraries\MIMXRT1060\MIMXRT1060\drivers;..\..\..\components\libc\posix\io\eventfd;..\libraries\drivers;..\..\..\components\drivers\include;board\ports;..\..\..\libcpu\arm\common;..\..\..\components\libc\compilers\common\extension\fcntl\octal;..\..\..\components\libc\posix\io\epoll;..\libraries\MIMXRT1060\CMSIS\Include;..\..\..\components\finsh</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -386,6 +386,13 @@
               <FilePath>applications\main.c</FilePath>
             </File>
           </Files>
+          <Files>
+            <File>
+              <FileName>mnt.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>applications\mnt.c</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>Compiler</GroupName>
@@ -412,13 +419,6 @@
           </Files>
           <Files>
             <File>
-              <FileName>cstdio.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\components\libc\compilers\common\cstdio.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
               <FileName>cstdlib.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\components\libc\compilers\common\cstdlib.c</FilePath>
@@ -440,6 +440,13 @@
           </Files>
           <Files>
             <File>
+              <FileName>cunistd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\components\libc\compilers\common\cunistd.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
               <FileName>cwchar.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\components\libc\compilers\common\cwchar.c</FilePath>
@@ -450,9 +457,9 @@
           <GroupName>CPU</GroupName>
           <Files>
             <File>
-              <FileName>backtrace.c</FileName>
+              <FileName>atomic_arm.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\libcpu\arm\common\backtrace.c</FilePath>
+              <FilePath>..\..\..\libcpu\arm\common\atomic_arm.c</FilePath>
             </File>
           </Files>
           <Files>
@@ -495,9 +502,9 @@
           <GroupName>DeviceDrivers</GroupName>
           <Files>
             <File>
-              <FileName>cputime.c</FileName>
+              <FileName>device.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\components\drivers\cputime\cputime.c</FilePath>
+              <FilePath>..\..\..\components\drivers\core\device.c</FilePath>
             </File>
           </Files>
           <Files>
@@ -579,6 +586,13 @@
           </Files>
           <Files>
             <File>
+              <FileName>phy.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\components\drivers\phy\phy.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
               <FileName>serial.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\components\drivers\serial\serial.c</FilePath>
@@ -617,16 +631,16 @@
           </Files>
           <Files>
             <File>
-              <FileName>drv_gpio.c</FileName>
+              <FileName>drv_common.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\libraries\drivers\drv_gpio.c</FilePath>
+              <FilePath>..\libraries\drivers\drv_common.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
-              <FileName>drv_i2c.c</FileName>
+              <FileName>drv_gpio.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\libraries\drivers\drv_i2c.c</FilePath>
+              <FilePath>..\libraries\drivers\drv_gpio.c</FilePath>
             </File>
           </Files>
           <Files>
@@ -686,13 +700,6 @@
           </Files>
           <Files>
             <File>
-              <FileName>device.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\src\device.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
               <FileName>idle.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\src\idle.c</FilePath>
@@ -742,9 +749,9 @@
           </Files>
           <Files>
             <File>
-              <FileName>scheduler.c</FileName>
+              <FileName>scheduler_up.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\src\scheduler.c</FilePath>
+              <FilePath>..\..\..\src\scheduler_up.c</FilePath>
             </File>
           </Files>
           <Files>
@@ -794,13 +801,6 @@
           </Files>
           <Files>
             <File>
-              <FileName>fsl_pxp.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\libraries\MIMXRT1060\MIMXRT1060\drivers\fsl_pxp.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
               <FileName>startup_MIMXRT1062.s</FileName>
               <FileType>2</FileType>
               <FilePath>..\libraries\MIMXRT1060\MIMXRT1060\arm\startup_MIMXRT1062.s</FilePath>
@@ -829,9 +829,16 @@
           </Files>
           <Files>
             <File>
-              <FileName>fsl_lpi2c.c</FileName>
+              <FileName>generic_list.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\libraries\MIMXRT1060\MIMXRT1060\drivers\fsl_lpi2c.c</FilePath>
+              <FilePath>..\libraries\MIMXRT1060\MIMXRT1060\drivers\generic_list.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>fsl_os_abstraction_rtthread.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\libraries\MIMXRT1060\MIMXRT1060\drivers\fsl_os_abstraction_rtthread.c</FilePath>
             </File>
           </Files>
           <Files>
@@ -853,16 +860,16 @@
           <GroupName>xip</GroupName>
           <Files>
             <File>
-              <FileName>fsl_flexspi_nor_boot.c</FileName>
+              <FileName>evkmimxrt1060_flexspi_nor_config.c</FileName>
               <FileType>1</FileType>
-              <FilePath>xip\fsl_flexspi_nor_boot.c</FilePath>
+              <FilePath>xip\evkmimxrt1060_flexspi_nor_config.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
-              <FileName>evkbmimxrt1060_flexspi_nor_config.c</FileName>
+              <FileName>fsl_flexspi_nor_boot.c</FileName>
               <FileType>1</FileType>
-              <FilePath>xip\evkbmimxrt1060_flexspi_nor_config.c</FilePath>
+              <FilePath>xip\fsl_flexspi_nor_boot.c</FilePath>
             </File>
           </Files>
         </Group>

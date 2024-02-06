@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006-2021, RT-Thread Development Team
+ * Copyright (c) 2006-2023, RT-Thread Development Team
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -135,6 +135,8 @@ extern "C" {
 #include "u5/sdio_config.h"
 #include "u5/pwm_config.h"
 #include "u5/usbd_config.h"
+#elif defined(SOC_SERIES_STM32H5)
+#include "h5/uart_config.h"
 #elif  defined(SOC_SERIES_STM32MP1)
 #include "mp1/dma_config.h"
 #include "mp1/uart_config.h"

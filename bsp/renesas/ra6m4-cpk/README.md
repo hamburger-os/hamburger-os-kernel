@@ -15,7 +15,7 @@
 
 开发板正面外观如下图：
 
-![image-20211011174017429](docs/picture/cpk-ra6m4.png) 
+![](docs/picture/cpk-ra6m4.png) 
 
 该开发板常用 **板载资源** 如下：
 
@@ -42,6 +42,7 @@
 | FLASH              | 支持               |                |
 | PWM                | 支持               |                |
 | CAN                | 支持               |                |
+|  SEGGER_RTT        |  支持              |  打开默认segger_rtt为console |
 | 持续更新中...      |                    |                |
 | **外接外设** | **支持情况** | **备注** |
 | WiFi 模块     | 支持        |  [RW007 WiFi 网络模块](https://github.com/RT-Thread-packages/rw007)  |
@@ -69,21 +70,27 @@
 
 使用 USB 数据线连接开发板到 PC，使用 J-link 接口下载和 DEBUG 程序。使用 USB 转串口工具连接 UART7：P613(TXD)、P614(RXD)。
 
-**编译下载**
+**MDK 编译，调试烧录**
 
 - 编译：双击 project.uvprojx 文件，打开 MDK5 工程，编译程序。
+
+* 下载：如果不需要进行调试，可以点击下载按钮烧录代码，如下是下载 mdk 中算法的配置。
+
+![](docs/picture/download.png)
+
+**使用其他方式烧录固件**
 
 > 注意：此工程需要使用 J-Flash Lite 工具烧录程序。建议使用 V7.50 及以上版本烧录工程。[J-Link 下载链接](https://www.segger.com/downloads/jlink/)
 
 - 下载：打开 J-Flash lite 工具，选择芯片型号 R7FA6M4AF，点击 OK 进入工具。选择 BSP 目录下 MDK 编译出的 /object/ra6m4.hex 文件，点击 Program Device 按钮开始烧录。具体操作过程可参考下图步骤：
 
-![image-20211011181555421](docs/picture/jflash1.png) 
+![](docs/picture/jflash1.png) 
 
-![image-20211011182047981](docs/picture/jflash2.png) 
+![](docs/picture/jflash2.png) 
 
-![image-20211011182434519](docs/picture/jflash.png) 
+![](docs/picture/jflash.png) 
 
-![image-20211011182949604](docs/picture/jflash3.png) 
+![](docs/picture/jflash3.png) 
 
 **查看运行结果**
 
@@ -172,6 +179,14 @@ void hal_entry(void)
 2. 输入`menuconfig`命令配置工程，配置好之后保存退出。
 3. 输入`pkgs --update`命令更新软件包。
 4. 输入`scons --target=mdk5` 命令重新生成工程。
+
+**SEGGER_RTT使用**
+
+由于瑞萨RA6M4的串口使用需要使用USB转TTL工具，使用起来十分不方便，RT-Thread提供的[RTTHREAD_SEGGER_TOOL软件包](https://github.com/supperthomas/RTTHREAD_SEGGER_TOOL)可以将J-Link作为RT-Thread的console口来使用，用户在`RT-Thread Settings->硬件->板载设备驱动`下使能SEGGER-RTT即可,如下
+
+![jlink-rtt](docs/picture/jlink-rtt.png)
+
+选中之后就能使用J-Link作为RT-Thread的console来使用了！
 
 
 ## FAQ

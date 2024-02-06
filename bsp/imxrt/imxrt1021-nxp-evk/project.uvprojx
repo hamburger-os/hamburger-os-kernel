@@ -8,13 +8,13 @@
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
       <pCCUsed>5060750::V5.06 update 6 (build 750)::ARMCC</pCCUsed>
-      <uAC6>0</uAC6>
+      <uAC6>1</uAC6>
       <TargetOption>
         <TargetCommonOption>
           <Device>MIMXRT1021DAG5A</Device>
           <Vendor>NXP</Vendor>
-          <PackID>NXP.MIMXRT1021_DFP.11.0.1</PackID>
-          <PackURL>http://mcuxpresso.nxp.com/cmsis_pack/repo/</PackURL>
+          <PackID>NXP.MIMXRT1021_DFP.16.0.0</PackID>
+          <PackURL>https://mcuxpresso.nxp.com/cmsis_pack/repo/</PackURL>
           <Cpu>IRAM(0x20000000,0x010000) IRAM2(0x00000000,0x010000) XRAM(0x20200000,0x020000) CPUTYPE("Cortex-M7") FPU3(DFPU) CLOCK(12000000) ELITTLE</Cpu>
           <FlashUtilSpec />
           <StartupFile />
@@ -182,9 +182,10 @@
             <uocXRam>0</uocXRam>
             <RvdsVP>3</RvdsVP>
             <RvdsMve>0</RvdsMve>
+            <RvdsCdeCp>0</RvdsCdeCp>
             <hadIRAM2>1</hadIRAM2>
             <hadIROM2>0</hadIROM2>
-            <StupSel>0</StupSel>
+            <StupSel>1</StupSel>
             <useUlib>0</useUlib>
             <EndSel>0</EndSel>
             <uLtcg>0</uLtcg>
@@ -198,7 +199,7 @@
             <NoZi3>0</NoZi3>
             <NoZi4>0</NoZi4>
             <NoZi5>0</NoZi5>
-            <Ro1Chk>0</Ro1Chk>
+            <Ro1Chk>1</Ro1Chk>
             <Ro2Chk>0</Ro2Chk>
             <Ro3Chk>0</Ro3Chk>
             <Ir1Chk>0</Ir1Chk>
@@ -207,7 +208,7 @@
             <Ra2Chk>0</Ra2Chk>
             <Ra3Chk>0</Ra3Chk>
             <Im1Chk>0</Im1Chk>
-            <Im2Chk>0</Im2Chk>
+            <Im2Chk>1</Im2Chk>
             <OnChipMemories>
               <Ocm1>
                 <Type>0</Type>
@@ -256,8 +257,8 @@
               </XRAM>
               <OCR_RVCT1>
                 <Type>1</Type>
-                <StartAddress>0x0</StartAddress>
-                <Size>0x0</Size>
+                <StartAddress>0x60000000</StartAddress>
+                <Size>0x800000</Size>
               </OCR_RVCT1>
               <OCR_RVCT2>
                 <Type>1</Type>
@@ -296,12 +297,12 @@
               </OCR_RVCT8>
               <OCR_RVCT9>
                 <Type>0</Type>
-                <StartAddress>0x20000000</StartAddress>
+                <StartAddress>0x0</StartAddress>
                 <Size>0x10000</Size>
               </OCR_RVCT9>
               <OCR_RVCT10>
                 <Type>0</Type>
-                <StartAddress>0x0</StartAddress>
+                <StartAddress>0x20000000</StartAddress>
                 <Size>0x10000</Size>
               </OCR_RVCT10>
             </OnChipMemories>
@@ -309,7 +310,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>3</Optim>
+            <Optim>2</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>1</OneElfS>
@@ -318,24 +319,24 @@
             <PlainCh>0</PlainCh>
             <Ropi>0</Ropi>
             <Rwpi>0</Rwpi>
-            <wLevel>0</wLevel>
+            <wLevel>3</wLevel>
             <uThumb>0</uThumb>
             <uSurpInc>0</uSurpInc>
             <uC99>1</uC99>
             <uGnu>0</uGnu>
             <useXO>0</useXO>
-            <v6Lang>1</v6Lang>
-            <v6LangP>1</v6LangP>
+            <v6Lang>3</v6Lang>
+            <v6LangP>3</v6LangP>
             <vShortEn>1</vShortEn>
             <vShortWch>1</vShortWch>
             <v6Lto>0</v6Lto>
             <v6WtE>0</v6WtE>
             <v6Rtti>0</v6Rtti>
             <VariousControls>
-              <MiscControls>--library_interface=armcc --library_type=standardlib --diag_suppress=66,1296,186</MiscControls>
-              <Define>__STDC_LIMIT_MACROS, XIP_BOOT_HEADER_ENABLE=1, SKIP_SYSCLK_INIT, CPU_MIMXRT1021DAG5A, __PERF_COUNT_PLATFORM_SPECIFIC_HEADER__=&lt;rtthread.h&gt;, RT_USING_LIBC, __FPU_PRESENT=1, __CLK_TCK=RT_TICK_PER_SECOND, __RTTHREAD__, __perf_counter_printf__=rt_kprintf, STD=C99, ENDIANNESS, FSL_SDK_ENABLE_DRIVER_CACHE_CONTROL, XIP_EXTERNAL_FLASH=1, EVK_MCIMXRM, RT_USING_ARM_LIBC</Define>
+              <MiscControls>-fno-common  -fdata-sections  -ffreestanding  -fno-builtin  -mthumb</MiscControls>
+              <Define>__STDC_LIMIT_MACROS, RT_USING_ARMLIBC, XIP_BOOT_HEADER_ENABLE=1, SKIP_SYSCLK_INIT, CPU_MIMXRT1021DAG5A, RT_USING_LIBC, __FPU_PRESENT=1, __CLK_TCK=RT_TICK_PER_SECOND, __RTTHREAD__, STD=C99, ENDIANNESS, FSL_SDK_ENABLE_DRIVER_CACHE_CONTROL, XIP_EXTERNAL_FLASH=1, EVK_MCIMXRM</Define>
               <Undefine />
-              <IncludePath>applications;..\..\..\components\libc\compilers\common\include;..\..\..\components\libc\compilers\common\extension;..\..\..\components\libc\compilers\common\extension\fcntl\octal;..\..\..\libcpu\arm\common;..\..\..\libcpu\arm\cortex-m7;..\..\..\components\drivers\include;..\..\..\components\drivers\include;..\..\..\components\drivers\include;..\..\..\components\drivers\include;..\..\..\components\drivers\include;..\..\..\components\drivers\include;..\..\..\components\drivers\include;..\..\..\components\drivers\spi;..\..\..\components\drivers\include;board;board\MCUX_Config;board\ports;..\libraries\drivers;..\..\..\components\dfs\include;..\..\..\components\dfs\filesystems\devfs;..\..\..\components\dfs\filesystems\elmfat;..\..\..\components\finsh;.;..\..\..\include;..\libraries\MIMXRT1020\CMSIS\Include;..\libraries\MIMXRT1020\MIMXRT1021;..\libraries\MIMXRT1020\MIMXRT1021\drivers;packages\perf_counter-latest;..\..\..\components\libc\posix\io\poll;..\..\..\components\libc\posix\io\stdio;..\..\..\components\libc\posix\ipc;..\..\..\components\drivers\usb\usbdevice;xip</IncludePath>
+              <IncludePath>..\..\..\components\drivers\include;..\..\..\components\drivers\include;board\ports;..\..\..\components\libc\compilers\common\extension;..\..\..\components\libc\compilers\common\include;..\..\..\libcpu\arm\cortex-m7;..\..\..\include;..\..\..\components\drivers\spi;..\..\..\components\drivers\include;..\..\..\components\drivers\include;..\..\..\components\dfs\dfs_v1\include;..\..\..\components\drivers\include;..\..\..\components\drivers\include;xip;..\..\..\components\drivers\include;board;applications;..\..\..\components\drivers\usb\usbdevice;.;..\..\..\components\libc\posix\ipc;..\..\..\components\libc\posix\io\eventfd;..\libraries\MIMXRT1020\MIMXRT1021;..\libraries\drivers;..\..\..\components\drivers\include;..\..\..\components\dfs\dfs_v1\filesystems\elmfat;..\libraries\MIMXRT1020\MIMXRT1021\drivers;..\..\..\libcpu\arm\common;..\..\..\components\libc\compilers\common\extension\fcntl\octal;..\..\..\components\dfs\dfs_v1\filesystems\devfs;..\..\..\components\libc\posix\io\poll;..\..\..\components\libc\posix\io\epoll;board\MCUX_Config;..\..\..\components\finsh;..\libraries\MIMXRT1020\CMSIS\Include</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -348,10 +349,10 @@
             <NoWarn>0</NoWarn>
             <uSurpInc>0</uSurpInc>
             <useXO>0</useXO>
-            <uClangAs>0</uClangAs>
+            <ClangAsOpt>1</ClangAsOpt>
             <VariousControls>
               <MiscControls />
-              <Define />
+              <Define>DEBUG, __STARTUP_INITIALIZE_NONCACHEDATA</Define>
               <Undefine />
               <IncludePath />
             </VariousControls>
@@ -411,13 +412,6 @@
           </Files>
           <Files>
             <File>
-              <FileName>cstdio.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\components\libc\compilers\common\cstdio.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
               <FileName>cstdlib.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\components\libc\compilers\common\cstdlib.c</FilePath>
@@ -439,6 +433,13 @@
           </Files>
           <Files>
             <File>
+              <FileName>cunistd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\components\libc\compilers\common\cunistd.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
               <FileName>cwchar.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\components\libc\compilers\common\cwchar.c</FilePath>
@@ -449,9 +450,9 @@
           <GroupName>CPU</GroupName>
           <Files>
             <File>
-              <FileName>backtrace.c</FileName>
+              <FileName>atomic_arm.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\libcpu\arm\common\backtrace.c</FilePath>
+              <FilePath>..\..\..\libcpu\arm\common\atomic_arm.c</FilePath>
             </File>
           </Files>
           <Files>
@@ -494,16 +495,9 @@
           <GroupName>DeviceDrivers</GroupName>
           <Files>
             <File>
-              <FileName>cputime.c</FileName>
+              <FileName>device.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\components\drivers\cputime\cputime.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>cputime_cortexm.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\components\drivers\cputime\cputime_cortexm.c</FilePath>
+              <FilePath>..\..\..\components\drivers\core\device.c</FilePath>
             </File>
           </Files>
           <Files>
@@ -613,6 +607,13 @@
           </Files>
           <Files>
             <File>
+              <FileName>gpt.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\components\drivers\sdio\gpt.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
               <FileName>mmc.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\components\drivers\sdio\mmc.c</FilePath>
@@ -679,6 +680,13 @@
           </Files>
           <Files>
             <File>
+              <FileName>dcd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>board\MCUX_Config\dcd.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
               <FileName>pin_mux.c</FileName>
               <FileType>1</FileType>
               <FilePath>board\MCUX_Config\pin_mux.c</FilePath>
@@ -689,6 +697,13 @@
               <FileName>board.c</FileName>
               <FileType>1</FileType>
               <FilePath>board\board.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>drv_common.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\libraries\drivers\drv_common.c</FilePath>
             </File>
           </Files>
           <Files>
@@ -712,56 +727,56 @@
             <File>
               <FileName>devfs.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\components\dfs\filesystems\devfs\devfs.c</FilePath>
+              <FilePath>..\..\..\components\dfs\dfs_v1\filesystems\devfs\devfs.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>dfs_elm.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\components\dfs\filesystems\elmfat\dfs_elm.c</FilePath>
+              <FilePath>..\..\..\components\dfs\dfs_v1\filesystems\elmfat\dfs_elm.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>ff.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\components\dfs\filesystems\elmfat\ff.c</FilePath>
+              <FilePath>..\..\..\components\dfs\dfs_v1\filesystems\elmfat\ff.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>ffunicode.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\components\dfs\filesystems\elmfat\ffunicode.c</FilePath>
+              <FilePath>..\..\..\components\dfs\dfs_v1\filesystems\elmfat\ffunicode.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>dfs.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\components\dfs\src\dfs.c</FilePath>
+              <FilePath>..\..\..\components\dfs\dfs_v1\src\dfs.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>dfs_file.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\components\dfs\src\dfs_file.c</FilePath>
+              <FilePath>..\..\..\components\dfs\dfs_v1\src\dfs_file.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>dfs_fs.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\components\dfs\src\dfs_fs.c</FilePath>
+              <FilePath>..\..\..\components\dfs\dfs_v1\src\dfs_fs.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
               <FileName>dfs_posix.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\components\dfs\src\dfs_posix.c</FilePath>
+              <FilePath>..\..\..\components\dfs\dfs_v1\src\dfs_posix.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -821,13 +836,6 @@
           </Files>
           <Files>
             <File>
-              <FileName>device.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\src\device.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
               <FileName>idle.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\src\idle.c</FilePath>
@@ -877,9 +885,9 @@
           </Files>
           <Files>
             <File>
-              <FileName>scheduler.c</FileName>
+              <FileName>scheduler_up.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\src\scheduler.c</FilePath>
+              <FilePath>..\..\..\src\scheduler_up.c</FilePath>
             </File>
           </Files>
           <Files>
@@ -957,31 +965,7 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>perf_counter</GroupName>
-          <Files>
-            <File>
-              <FileName>perf_os_patch_rt_thread.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>packages\perf_counter-latest\os\perf_os_patch_rt_thread.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>perf_counter.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>packages\perf_counter-latest\perf_counter.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
           <GroupName>rt_usbd</GroupName>
-          <Files>
-            <File>
-              <FileName>usbdevice_core.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\components\drivers\usb\usbdevice\core\usbdevice_core.c</FilePath>
-            </File>
-          </Files>
           <Files>
             <File>
               <FileName>mstorage.c</FileName>
@@ -991,9 +975,9 @@
           </Files>
           <Files>
             <File>
-              <FileName>usbdevice.c</FileName>
+              <FileName>usbdevice_core.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\components\drivers\usb\usbdevice\core\usbdevice.c</FilePath>
+              <FilePath>..\..\..\components\drivers\usb\usbdevice\core\usbdevice_core.c</FilePath>
             </File>
           </Files>
           <Files>
@@ -1003,21 +987,28 @@
               <FilePath>..\..\..\components\drivers\usb\usbdevice\class\cdc_vcom.c</FilePath>
             </File>
           </Files>
+          <Files>
+            <File>
+              <FileName>usbdevice.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\components\drivers\usb\usbdevice\core\usbdevice.c</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>xip</GroupName>
           <Files>
             <File>
-              <FileName>fsl_flexspi_nor_boot.c</FileName>
+              <FileName>fsl_flexspi_nor_flash.c</FileName>
               <FileType>1</FileType>
-              <FilePath>xip\fsl_flexspi_nor_boot.c</FilePath>
+              <FilePath>xip\fsl_flexspi_nor_flash.c</FilePath>
             </File>
           </Files>
           <Files>
             <File>
-              <FileName>fsl_flexspi_nor_flash.c</FileName>
+              <FileName>fsl_flexspi_nor_boot.c</FileName>
               <FileType>1</FileType>
-              <FilePath>xip\fsl_flexspi_nor_flash.c</FilePath>
+              <FilePath>xip\fsl_flexspi_nor_boot.c</FilePath>
             </File>
           </Files>
         </Group>

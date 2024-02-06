@@ -7,13 +7,13 @@
       <TargetName>rtthread-lpc55s6x</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>6120000::V6.12::.\ARMCLANG</pCCUsed>
+      <pCCUsed>6160000::V6.16::ARMCLANG</pCCUsed>
       <uAC6>1</uAC6>
       <TargetOption>
         <TargetCommonOption>
           <Device>LPC55S69JBD100:cm33_core0</Device>
           <Vendor>NXP</Vendor>
-          <PackID>NXP.LPC55S69_DFP.13.0.0</PackID>
+          <PackID>NXP.LPC55S69_DFP.14.0.0</PackID>
           <PackURL>https://mcuxpresso.nxp.com/cmsis_pack/repo/</PackURL>
           <Cpu>IRAM(0x20000000,0x044000) IRAM2(0x04000000,0x8000) IROM(0x00000000,0x098000) XRAM(0x40100000,0x4000) CPUTYPE("Cortex-M33") FPU3(SFPU) DSP TZ CLOCK(12000000) ELITTLE</Cpu>
           <FlashUtilSpec />
@@ -46,7 +46,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\build\</OutputDirectory>
-          <OutputName>rtthread-lpc55s6x</OutputName>
+          <OutputName>rtthread</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
           <CreateHexFile>0</CreateHexFile>
@@ -334,9 +334,9 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls>--target=arm-arm-none-eabi</MiscControls>
-              <Define>CPU_LPC55S69JBD100_cm33_core0, RT_USING_LIBC, __CLK_TCK=RT_TICK_PER_SECOND, __STDC_LIMIT_MACROS, __RTTHREAD__, RT_USING_ARM_LIBC</Define>
+              <Define>__STDC_LIMIT_MACROS, RT_USING_ARMLIBC, RT_USING_LIBC, __CLK_TCK=RT_TICK_PER_SECOND, __RTTHREAD__, CPU_LPC55S69JBD100_cm33_core0, DEBUG</Define>
               <Undefine />
-              <IncludePath>applications;..\..\..\components\libc\compilers\common\include;..\..\..\components\libc\compilers\common\extension;..\..\..\components\libc\compilers\common\extension\fcntl\octal;..\..\..\libcpu\arm\common;..\..\..\libcpu\arm\cortex-m33;..\..\..\components\drivers\include;..\..\..\components\drivers\include;..\..\..\components\drivers\include;board;board\MCUX_Config\board;..\Libraries\drivers;..\Libraries\drivers\config;..\..\..\components\finsh;.;..\..\..\include;..\Libraries\LPC55S6X\CMSIS\Include;..\Libraries\LPC55S6X\components\codec;..\Libraries\LPC55S6X\LPC55S6X;..\Libraries\LPC55S6X\LPC55S6X\drivers;..\Libraries\LPC55S6X\middleware\sdmmc\inc;..\Libraries\LPC55S6X\middleware\sdmmc\port;..\..\..\components\libc\posix\io\poll;..\..\..\components\libc\posix\io\stdio;..\..\..\components\libc\posix\ipc</IncludePath>
+              <IncludePath>..\..\..\components\libc\posix\io\poll;..\..\..\components\libc\compilers\common\include;..\Libraries\LPC55S6X\middleware\sdmmc\port;..\Libraries\LPC55S6X\components\codec;.;..\..\..\components\libc\posix\io\eventfd;..\..\..\components\libc\compilers\common\extension;..\Libraries\CMSIS\Core\Include;..\..\..\include;..\Libraries\LPC55S6X\LPC55S6X;..\..\..\components\drivers\include;..\..\..\components\drivers\include;..\Libraries\LPC55S6X\LPC55S6X\drivers;..\..\..\components\drivers\include;..\..\..\components\libc\posix\io\epoll;..\Libraries\LPC55S6X\middleware\sdmmc\inc;..\..\..\components\libc\posix\ipc;applications;board;..\..\..\libcpu\arm\cortex-m33;..\..\..\components\drivers\include;..\Libraries\drivers;..\..\..\libcpu\arm\common;..\..\..\components\libc\compilers\common\extension\fcntl\octal;board\MCUX_Config\board;..\..\..\components\finsh</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -349,9 +349,9 @@
             <NoWarn>0</NoWarn>
             <uSurpInc>0</uSurpInc>
             <useXO>0</useXO>
-            <ClangAsOpt>4</ClangAsOpt>
+            <ClangAsOpt>1</ClangAsOpt>
             <VariousControls>
-              <MiscControls />
+              <MiscControls>-x assembler-with-cpp</MiscControls>
               <Define />
               <Undefine />
               <IncludePath />
@@ -367,7 +367,7 @@
             <TextAddressRange>0x00000000</TextAddressRange>
             <DataAddressRange>0x02000000</DataAddressRange>
             <pXoBase />
-            <ScatterFile>.\board\linker_scripts\LPC55S69_cm33_core0_flash_mdk.scf</ScatterFile>
+            <ScatterFile>.\board\linker_scripts\LPC55S69_cm33_core0_flash.scf</ScatterFile>
             <IncludeLibs />
             <IncludeLibsPath />
             <Misc />
@@ -412,13 +412,6 @@
           </Files>
           <Files>
             <File>
-              <FileName>cstdio.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\components\libc\compilers\common\cstdio.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
               <FileName>cstdlib.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\components\libc\compilers\common\cstdlib.c</FilePath>
@@ -440,6 +433,13 @@
           </Files>
           <Files>
             <File>
+              <FileName>cunistd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\components\libc\compilers\common\cunistd.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
               <FileName>cwchar.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\components\libc\compilers\common\cwchar.c</FilePath>
@@ -450,9 +450,9 @@
           <GroupName>CPU</GroupName>
           <Files>
             <File>
-              <FileName>backtrace.c</FileName>
+              <FileName>atomic_arm.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\libcpu\arm\common\backtrace.c</FilePath>
+              <FilePath>..\..\..\libcpu\arm\common\atomic_arm.c</FilePath>
             </File>
           </Files>
           <Files>
@@ -500,6 +500,13 @@
         </Group>
         <Group>
           <GroupName>DeviceDrivers</GroupName>
+          <Files>
+            <File>
+              <FileName>device.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\components\drivers\core\device.c</FilePath>
+            </File>
+          </Files>
           <Files>
             <File>
               <FileName>completion.c</FileName>
@@ -589,20 +596,6 @@
           </Files>
           <Files>
             <File>
-              <FileName>drv_key.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Libraries\drivers\drv_key.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>drv_led.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Libraries\drivers\drv_led.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
               <FileName>drv_pin.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Libraries\drivers\drv_pin.c</FilePath>
@@ -665,13 +658,6 @@
           </Files>
           <Files>
             <File>
-              <FileName>device.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\src\device.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
               <FileName>idle.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\src\idle.c</FilePath>
@@ -721,9 +707,9 @@
           </Files>
           <Files>
             <File>
-              <FileName>scheduler.c</FileName>
+              <FileName>scheduler_up.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\src\scheduler.c</FilePath>
+              <FilePath>..\..\..\src\scheduler_up.c</FilePath>
             </File>
           </Files>
           <Files>
@@ -766,20 +752,6 @@
           </Files>
           <Files>
             <File>
-              <FileName>fsl_sdmmc_host.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Libraries\LPC55S6X\middleware\sdmmc\port\sdif\rt_thread\fsl_sdmmc_host.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>fsl_sdmmc_event.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Libraries\LPC55S6X\middleware\sdmmc\port\sdif\rt_thread\fsl_sdmmc_event.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
               <FileName>fsl_cmp.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Libraries\LPC55S6X\LPC55S6X\drivers\fsl_cmp.c</FilePath>
@@ -794,9 +766,9 @@
           </Files>
           <Files>
             <File>
-              <FileName>fsl_sd.c</FileName>
+              <FileName>fsl_common_arm.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Libraries\LPC55S6X\middleware\sdmmc\src\fsl_sd.c</FilePath>
+              <FilePath>..\Libraries\LPC55S6X\LPC55S6X\drivers\fsl_common_arm.c</FilePath>
             </File>
           </Files>
           <Files>
@@ -804,13 +776,6 @@
               <FileName>fsl_power.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Libraries\LPC55S6X\LPC55S6X\drivers\fsl_power.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>fsl_sdmmc_common.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Libraries\LPC55S6X\middleware\sdmmc\src\fsl_sdmmc_common.c</FilePath>
             </File>
           </Files>
           <Files>
@@ -1011,13 +976,6 @@
           </Files>
           <Files>
             <File>
-              <FileName>fsl_prince.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Libraries\LPC55S6X\LPC55S6X\drivers\fsl_prince.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
               <FileName>fsl_i2c.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Libraries\LPC55S6X\LPC55S6X\drivers\fsl_i2c.c</FilePath>
@@ -1035,13 +993,6 @@
               <FileName>system_LPC55S69_cm33_core0.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Libraries\LPC55S6X\LPC55S6X\system_LPC55S69_cm33_core0.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>arm_keil_lib_power_cm33_core0.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\Libraries\LPC55S6X\LPC55S6X\arm\keil_lib_power_cm33_core0.lib</FilePath>
             </File>
           </Files>
           <Files>

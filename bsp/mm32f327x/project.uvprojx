@@ -334,9 +334,9 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls />
-              <Define>__STDC_LIMIT_MACROS, USE_STDPERIPH_DRIVER, RT_USING_LIBC, __CLK_TCK=RT_TICK_PER_SECOND, __RTTHREAD__, RT_USING_ARM_LIBC</Define>
+              <Define>__STDC_LIMIT_MACROS, RT_USING_ARMLIBC, USE_STDPERIPH_DRIVER, RT_USING_LIBC, __CLK_TCK=RT_TICK_PER_SECOND, __RTTHREAD__</Define>
               <Undefine />
-              <IncludePath>applications;.;..\..\components\libc\compilers\common\include;..\..\components\libc\compilers\common\extension;..\..\components\libc\compilers\common\extension\fcntl\octal;..\..\libcpu\arm\common;..\..\libcpu\arm\cortex-m3;..\..\components\drivers\include;..\..\components\drivers\include;..\..\components\drivers\include;drivers;..\..\components\finsh;.;..\..\include;Libraries\CMSIS\KEIL_CORE;Libraries\MM32F327x\Include;Libraries\MM32F327x\Source;Libraries\MM32F327x\HAL_lib\Inc;..\..\components\libc\posix\io\poll;..\..\components\libc\posix\io\stdio;..\..\components\libc\posix\ipc</IncludePath>
+              <IncludePath>Libraries\MM32F327x\HAL_Lib\Inc;..\..\components\libc\posix\io\poll;..\..\components\libc\compilers\common\extension;Libraries\MM32F327x\Source;..\..\components\libc\compilers\common\include;.;..\..\include;..\..\libcpu\arm\cortex-m3;..\..\components\drivers\include;..\..\components\drivers\include;..\..\components\drivers\include;drivers;..\..\components\libc\posix\io\epoll;..\..\components\libc\posix\ipc;Libraries\MM32F327x\Include;Libraries\CMSIS\KEIL_CORE;..\..\components\libc\posix\io\eventfd;..\..\components\drivers\include;..\..\libcpu\arm\common;..\..\components\libc\compilers\common\extension\fcntl\octal;applications;..\..\components\finsh</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -412,13 +412,6 @@
           </Files>
           <Files>
             <File>
-              <FileName>cstdio.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\components\libc\compilers\common\cstdio.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
               <FileName>cstdlib.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\components\libc\compilers\common\cstdlib.c</FilePath>
@@ -440,6 +433,13 @@
           </Files>
           <Files>
             <File>
+              <FileName>cunistd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\components\libc\compilers\common\cunistd.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
               <FileName>cwchar.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\components\libc\compilers\common\cwchar.c</FilePath>
@@ -448,13 +448,6 @@
         </Group>
         <Group>
           <GroupName>CPU</GroupName>
-          <Files>
-            <File>
-              <FileName>backtrace.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\libcpu\arm\common\backtrace.c</FilePath>
-            </File>
-          </Files>
           <Files>
             <File>
               <FileName>div0.c</FileName>
@@ -486,6 +479,13 @@
         </Group>
         <Group>
           <GroupName>DeviceDrivers</GroupName>
+          <Files>
+            <File>
+              <FileName>device.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\components\drivers\core\device.c</FilePath>
+            </File>
+          </Files>
           <Files>
             <File>
               <FileName>completion.c</FileName>
@@ -623,13 +623,6 @@
           </Files>
           <Files>
             <File>
-              <FileName>device.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\src\device.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
               <FileName>idle.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\src\idle.c</FilePath>
@@ -686,9 +679,9 @@
           </Files>
           <Files>
             <File>
-              <FileName>scheduler.c</FileName>
+              <FileName>scheduler_up.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\src\scheduler.c</FilePath>
+              <FilePath>..\..\src\scheduler_up.c</FilePath>
             </File>
           </Files>
           <Files>
@@ -710,107 +703,9 @@
           <GroupName>Libraries</GroupName>
           <Files>
             <File>
-              <FileName>hal_can.c</FileName>
+              <FileName>hal_wwdg.c</FileName>
               <FileType>1</FileType>
-              <FilePath>Libraries\MM32F327x\HAL_lib\src\hal_can.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>hal_adc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>Libraries\MM32F327x\HAL_lib\src\hal_adc.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>hal_i2c.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>Libraries\MM32F327x\HAL_lib\src\hal_i2c.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>hal_spi.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>Libraries\MM32F327x\HAL_lib\src\hal_spi.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>hal_gpio.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>Libraries\MM32F327x\HAL_lib\src\hal_gpio.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>hal_dbg.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>Libraries\MM32F327x\HAL_lib\src\hal_dbg.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>hal_pwr.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>Libraries\MM32F327x\HAL_lib\src\hal_pwr.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>hal_exti.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>Libraries\MM32F327x\HAL_lib\src\hal_exti.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>hal_rcc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>Libraries\MM32F327x\HAL_lib\src\hal_rcc.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>hal_comp.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>Libraries\MM32F327x\HAL_lib\src\hal_comp.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>hal_uid.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>Libraries\MM32F327x\HAL_lib\src\hal_uid.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>system_mm32f327x.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>Libraries\MM32F327x\Source\system_mm32f327x.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>hal_crc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>Libraries\MM32F327x\HAL_lib\src\hal_crc.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>hal_fsmc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>Libraries\MM32F327x\HAL_lib\src\hal_fsmc.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>hal_iwdg.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>Libraries\MM32F327x\HAL_lib\src\hal_iwdg.c</FilePath>
+              <FilePath>Libraries\MM32F327x\HAL_lib\src\hal_wwdg.c</FilePath>
             </File>
           </Files>
           <Files>
@@ -822,72 +717,9 @@
           </Files>
           <Files>
             <File>
-              <FileName>hal_tim.c</FileName>
+              <FileName>hal_ver.c</FileName>
               <FileType>1</FileType>
-              <FilePath>Libraries\MM32F327x\HAL_lib\src\hal_tim.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>startup_mm32f327x_keil.s</FileName>
-              <FileType>2</FileType>
-              <FilePath>Libraries\MM32F327x\Source\KEIL_StartAsm\startup_mm32f327x_keil.s</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>hal_wwdg.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>Libraries\MM32F327x\HAL_lib\src\hal_wwdg.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>hal_crs.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>Libraries\MM32F327x\HAL_lib\src\hal_crs.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>hal_rtc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>Libraries\MM32F327x\HAL_lib\src\hal_rtc.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>hal_eth.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>Libraries\MM32F327x\HAL_lib\src\hal_eth.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>hal_sdio.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>Libraries\MM32F327x\HAL_lib\src\hal_sdio.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>hal_bkp.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>Libraries\MM32F327x\HAL_lib\src\hal_bkp.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>hal_uart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>Libraries\MM32F327x\HAL_lib\src\hal_uart.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
-              <FileName>hal_misc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>Libraries\MM32F327x\HAL_lib\src\hal_misc.c</FilePath>
+              <FilePath>Libraries\MM32F327x\HAL_lib\src\hal_ver.c</FilePath>
             </File>
           </Files>
           <Files>
@@ -899,9 +731,23 @@
           </Files>
           <Files>
             <File>
-              <FileName>hal_ver.c</FileName>
+              <FileName>hal_comp.c</FileName>
               <FileType>1</FileType>
-              <FilePath>Libraries\MM32F327x\HAL_lib\src\hal_ver.c</FilePath>
+              <FilePath>Libraries\MM32F327x\HAL_lib\src\hal_comp.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>hal_misc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>Libraries\MM32F327x\HAL_lib\src\hal_misc.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>hal_uid.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>Libraries\MM32F327x\HAL_lib\src\hal_uid.c</FilePath>
             </File>
           </Files>
           <Files>
@@ -909,6 +755,153 @@
               <FileName>hal_dac.c</FileName>
               <FileType>1</FileType>
               <FilePath>Libraries\MM32F327x\HAL_lib\src\hal_dac.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>hal_gpio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>Libraries\MM32F327x\HAL_lib\src\hal_gpio.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>hal_spi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>Libraries\MM32F327x\HAL_lib\src\hal_spi.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>hal_fsmc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>Libraries\MM32F327x\HAL_lib\src\hal_fsmc.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>startup_mm32f327x_keil.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>Libraries\MM32F327x\Source\KEIL_StartAsm\startup_mm32f327x_keil.s</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>hal_sdio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>Libraries\MM32F327x\HAL_lib\src\hal_sdio.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>hal_crc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>Libraries\MM32F327x\HAL_lib\src\hal_crc.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>system_mm32f327x.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>Libraries\MM32F327x\Source\system_mm32f327x.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>hal_adc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>Libraries\MM32F327x\HAL_lib\src\hal_adc.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>hal_crs.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>Libraries\MM32F327x\HAL_lib\src\hal_crs.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>hal_rcc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>Libraries\MM32F327x\HAL_lib\src\hal_rcc.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>hal_uart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>Libraries\MM32F327x\HAL_lib\src\hal_uart.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>hal_bkp.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>Libraries\MM32F327x\HAL_lib\src\hal_bkp.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>hal_i2c.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>Libraries\MM32F327x\HAL_lib\src\hal_i2c.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>hal_pwr.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>Libraries\MM32F327x\HAL_lib\src\hal_pwr.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>hal_tim.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>Libraries\MM32F327x\HAL_lib\src\hal_tim.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>hal_can.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>Libraries\MM32F327x\HAL_lib\src\hal_can.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>hal_rtc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>Libraries\MM32F327x\HAL_lib\src\hal_rtc.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>hal_exti.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>Libraries\MM32F327x\HAL_lib\src\hal_exti.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>hal_dbg.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>Libraries\MM32F327x\HAL_lib\src\hal_dbg.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>hal_iwdg.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>Libraries\MM32F327x\HAL_lib\src\hal_iwdg.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
+              <FileName>hal_eth.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>Libraries\MM32F327x\HAL_lib\src\hal_eth.c</FilePath>
             </File>
           </Files>
         </Group>

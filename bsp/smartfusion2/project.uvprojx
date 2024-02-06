@@ -334,9 +334,9 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls />
-              <Define>RT_USING_LIBC, __RTTHREAD__, __STDC_LIMIT_MACROS, RT_USING_ARM_LIBC, __CLK_TCK=RT_TICK_PER_SECOND</Define>
+              <Define>RT_USING_LIBC, RT_USING_ARMLIBC, __STDC_LIMIT_MACROS, __RTTHREAD__, __CLK_TCK=RT_TICK_PER_SECOND</Define>
               <Undefine />
-              <IncludePath>applications;board;CMSIS;..\..\components\libc\compilers\common\include;..\..\components\libc\compilers\common\extension;..\..\components\libc\compilers\common\extension\fcntl\octal;..\..\libcpu\arm\common;..\..\libcpu\arm\cortex-m3;..\..\components\drivers\include;..\..\components\drivers\include;..\..\components\drivers\include;drivers;..\..\components\finsh;.;..\..\include;libraries\sys_config;libraries\mss_gpio;libraries\mss_uart;..\..\components\libc\posix\io\poll;..\..\components\libc\posix\io\stdio;..\..\components\libc\posix\ipc</IncludePath>
+              <IncludePath>..\..\components\drivers\include;..\..\components\libc\compilers\common\include;libraries\sys_config;board;..\..\components\libc\compilers\common\extension;.;..\..\include;..\..\libcpu\arm\cortex-m3;..\..\components\drivers\include;..\..\components\libc\posix\io\poll;..\..\components\drivers\include;drivers;..\..\components\libc\posix\io\epoll;libraries\mss_gpio;..\..\components\libc\posix\ipc;..\..\components\libc\posix\io\eventfd;..\..\components\drivers\include;..\..\libcpu\arm\common;..\..\components\libc\compilers\common\extension\fcntl\octal;applications;CMSIS;libraries\mss_uart;..\..\components\finsh</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -450,13 +450,6 @@
           </Files>
           <Files>
             <File>
-              <FileName>cstdio.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\components\libc\compilers\common\cstdio.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
               <FileName>cstdlib.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\components\libc\compilers\common\cstdlib.c</FilePath>
@@ -478,6 +471,13 @@
           </Files>
           <Files>
             <File>
+              <FileName>cunistd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\components\libc\compilers\common\cunistd.c</FilePath>
+            </File>
+          </Files>
+          <Files>
+            <File>
               <FileName>cwchar.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\components\libc\compilers\common\cwchar.c</FilePath>
@@ -486,13 +486,6 @@
         </Group>
         <Group>
           <GroupName>CPU</GroupName>
-          <Files>
-            <File>
-              <FileName>backtrace.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\libcpu\arm\common\backtrace.c</FilePath>
-            </File>
-          </Files>
           <Files>
             <File>
               <FileName>div0.c</FileName>
@@ -524,6 +517,13 @@
         </Group>
         <Group>
           <GroupName>DeviceDrivers</GroupName>
+          <Files>
+            <File>
+              <FileName>device.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\components\drivers\core\device.c</FilePath>
+            </File>
+          </Files>
           <Files>
             <File>
               <FileName>completion.c</FileName>
@@ -654,13 +654,6 @@
           </Files>
           <Files>
             <File>
-              <FileName>device.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\src\device.c</FilePath>
-            </File>
-          </Files>
-          <Files>
-            <File>
               <FileName>idle.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\src\idle.c</FilePath>
@@ -710,9 +703,9 @@
           </Files>
           <Files>
             <File>
-              <FileName>scheduler.c</FileName>
+              <FileName>scheduler_up.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\src\scheduler.c</FilePath>
+              <FilePath>..\..\src\scheduler_up.c</FilePath>
             </File>
           </Files>
           <Files>
@@ -734,9 +727,9 @@
           <GroupName>Libraries</GroupName>
           <Files>
             <File>
-              <FileName>sys_config.c</FileName>
+              <FileName>mss_gpio.c</FileName>
               <FileType>1</FileType>
-              <FilePath>libraries\sys_config\sys_config.c</FilePath>
+              <FilePath>libraries\mss_gpio\mss_gpio.c</FilePath>
             </File>
           </Files>
           <Files>
@@ -748,9 +741,9 @@
           </Files>
           <Files>
             <File>
-              <FileName>mss_gpio.c</FileName>
+              <FileName>sys_config.c</FileName>
               <FileType>1</FileType>
-              <FilePath>libraries\mss_gpio\mss_gpio.c</FilePath>
+              <FilePath>libraries\sys_config\sys_config.c</FilePath>
             </File>
           </Files>
         </Group>

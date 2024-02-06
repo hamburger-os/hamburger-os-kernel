@@ -324,6 +324,11 @@ def touch_env():
     if sys.platform != 'win32':
         env_sh = open(os.path.join(env_dir, 'env.sh'), 'w')
         env_sh.write('export PATH=~/.env/tools/scripts:$PATH')
+
+        # if fish config exists, generate env.fish
+        if os.path.exists(os.path.join(home_dir, '.config', 'fish', 'config.fish')):
+            env_fish = open(os.path.join(env_dir, 'env.fish'), 'w')
+            env_fish.write('set -gx PATH ~/.env/tools/scripts $PATH')
     else:
         if os.path.exists(os.path.join(env_dir, 'tools', 'scripts')):
             os.environ["PATH"] = os.path.join(env_dir, 'tools', 'scripts') + ';' + os.environ["PATH"]
@@ -354,8 +359,8 @@ def menuconfig(RTT_ROOT):
 
     touch_env()
     env_dir = get_env_dir()
-
-    os.environ['PKGS_ROOT'] = os.path.join(env_dir, 'packages')
+    if isinstance(env_dir, str):
+        os.environ['PKGS_ROOT'] = os.path.join(env_dir, 'packages')
 
     fn = '.config'
     fn_old = '.config.old'
@@ -387,8 +392,8 @@ def guiconfig(RTT_ROOT):
         touch_env()
 
     env_dir = get_env_dir()
-
-    os.environ['PKGS_ROOT'] = os.path.join(env_dir, 'packages')
+    if isinstance(env_dir, str):
+        os.environ['PKGS_ROOT'] = os.path.join(env_dir, 'packages')
 
     fn = '.config'
     fn_old = '.config.old'
@@ -421,8 +426,8 @@ def guiconfig_silent(RTT_ROOT):
         touch_env()
 
     env_dir = get_env_dir()
-
-    os.environ['PKGS_ROOT'] = os.path.join(env_dir, 'packages')
+    if isinstance(env_dir, str):
+        os.environ['PKGS_ROOT'] = os.path.join(env_dir, 'packages')
 
     fn = '.config'
 

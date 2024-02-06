@@ -366,13 +366,14 @@
           <state>$PROJ_DIR$\..\..\..\include</state>
           <state>$PROJ_DIR$\..\..\..\components\drivers\include</state>
           <state>$PROJ_DIR$\..\libraries\N32G45x_Firmware_Library\CMSIS\device</state>
+          <state>$PROJ_DIR$\..\..\..\components\libc\posix\io\epoll</state>
+          <state>$PROJ_DIR$\..\..\..\components\libc\posix\io\eventfd</state>
           <state>$PROJ_DIR$\.</state>
           <state>$PROJ_DIR$\applications</state>
           <state>$PROJ_DIR$\..\libraries\N32G45x_Firmware_Library\CMSIS\core</state>
-          <state>$PROJ_DIR$\..\..\..\components\libc\posix\io\stdio</state>
+          <state>$PROJ_DIR$\..\..\..\components\libc\posix\ipc</state>
           <state>$PROJ_DIR$\..\..\..\components\libc\posix\io\poll</state>
           <state>$PROJ_DIR$\..\..\..\components\libc\compilers\common\extension</state>
-          <state>$PROJ_DIR$\..\..\..\components\libc\posix\ipc</state>
           <state>$PROJ_DIR$\..\..\..\components\libc\compilers\common\include</state>
           <state>$PROJ_DIR$\..\..\..\components\drivers\spi</state>
           <state>$PROJ_DIR$\board</state>
@@ -1448,13 +1449,14 @@
           <state>$PROJ_DIR$\..\..\..\include</state>
           <state>$PROJ_DIR$\..\..\..\components\drivers\include</state>
           <state>$PROJ_DIR$\..\libraries\N32G45x_Firmware_Library\CMSIS\device</state>
+          <state>$PROJ_DIR$\..\..\..\components\libc\posix\io\epoll</state>
+          <state>$PROJ_DIR$\..\..\..\components\libc\posix\io\eventfd</state>
           <state>$PROJ_DIR$\.</state>
           <state>$PROJ_DIR$\applications</state>
           <state>$PROJ_DIR$\..\libraries\N32G45x_Firmware_Library\CMSIS\core</state>
-          <state>$PROJ_DIR$\..\..\..\components\libc\posix\io\stdio</state>
+          <state>$PROJ_DIR$\..\..\..\components\libc\posix\ipc</state>
           <state>$PROJ_DIR$\..\..\..\components\libc\posix\io\poll</state>
           <state>$PROJ_DIR$\..\..\..\components\libc\compilers\common\extension</state>
-          <state>$PROJ_DIR$\..\..\..\components\libc\posix\ipc</state>
           <state>$PROJ_DIR$\..\..\..\components\libc\compilers\common\include</state>
           <state>$PROJ_DIR$\..\..\..\components\drivers\spi</state>
           <state>$PROJ_DIR$\board</state>
@@ -2176,9 +2178,6 @@
       <name>$PROJ_DIR$\..\..\..\components\libc\compilers\common\cctype.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\components\libc\compilers\common\cstdio.c</name>
-    </file>
-    <file>
       <name>$PROJ_DIR$\..\..\..\components\libc\compilers\common\cstdlib.c</name>
     </file>
     <file>
@@ -2186,6 +2185,9 @@
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\components\libc\compilers\common\ctime.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\components\libc\compilers\common\cunistd.c</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\components\libc\compilers\common\cwchar.c</name>
@@ -2221,7 +2223,7 @@
   <group>
     <name>CPU</name>
     <file>
-      <name>$PROJ_DIR$\..\..\..\libcpu\arm\common\backtrace.c</name>
+      <name>$PROJ_DIR$\..\..\..\libcpu\arm\common\atomic_arm.c</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\libcpu\arm\common\div0.c</name>
@@ -2240,6 +2242,9 @@
     <name>DeviceDrivers</name>
     <file>
       <name>$PROJ_DIR$\..\..\..\components\drivers\can\can.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\components\drivers\core\device.c</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\components\drivers\hwtimer\hwtimer.c</name>
@@ -2284,6 +2289,9 @@
       <name>$PROJ_DIR$\..\..\..\components\drivers\misc\pin.c</name>
     </file>
     <file>
+      <name>$PROJ_DIR$\..\..\..\components\drivers\rtc\rtc.c</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\..\..\components\drivers\serial\serial.c</name>
     </file>
     <file>
@@ -2320,6 +2328,9 @@
       <name>$PROJ_DIR$\..\libraries\n32_drivers\drv_hwtimer.c</name>
     </file>
     <file>
+      <name>$PROJ_DIR$\..\libraries\n32_drivers\drv_rtc.c</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\libraries\n32_drivers\drv_spi.c</name>
     </file>
     <file>
@@ -2353,9 +2364,6 @@
       <name>$PROJ_DIR$\..\..\..\src\components.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\src\device.c</name>
-    </file>
-    <file>
       <name>$PROJ_DIR$\..\..\..\src\idle.c</name>
     </file>
     <file>
@@ -2380,7 +2388,7 @@
       <name>$PROJ_DIR$\..\..\..\src\object.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\src\scheduler.c</name>
+      <name>$PROJ_DIR$\..\..\..\src\scheduler_up.c</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\src\thread.c</name>
@@ -2391,6 +2399,9 @@
   </group>
   <group>
     <name>Libraries</name>
+    <file>
+      <name>$PROJ_DIR$\..\libraries\N32G45x_Firmware_Library\n32g45x_std_periph_driver\src\n32g45x_pwr.c</name>
+    </file>
     <file>
       <name>$PROJ_DIR$\..\libraries\N32G45x_Firmware_Library\n32g45x_std_periph_driver\src\n32g45x_usart.c</name>
     </file>
@@ -2414,6 +2425,9 @@
     </file>
     <file>
       <name>$PROJ_DIR$\..\libraries\N32G45x_Firmware_Library\n32g45x_std_periph_driver\src\n32g45x_adc.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\libraries\N32G45x_Firmware_Library\n32g45x_std_periph_driver\src\n32g45x_rtc.c</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\libraries\N32G45x_Firmware_Library\n32g45x_std_periph_driver\src\n32g45x_gpio.c</name>
