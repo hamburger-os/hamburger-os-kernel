@@ -25,7 +25,6 @@
 import os
 import sys
 import string
-# import mdklib
 
 import xml.etree.ElementTree as etree
 from xml.etree.ElementTree import SubElement
@@ -375,7 +374,7 @@ def MDK5ProjectLib(target, script):
         import shutil
         shutil.copy2('template_lib.uvoptx', 'project_lib.uvoptx')
 
-def MDKProject(target, script):
+def MDK2Project(target, script):
     template = open('template.Uv2', "r")
     lines = template.readlines()
 
@@ -482,7 +481,7 @@ def ARMCC_Version():
 
     path = rtconfig.EXEC_PATH
     if(rtconfig.PLATFORM == 'armcc'):
-    path = os.path.join(path, 'armcc.exe')
+        path = os.path.join(path, 'armcc.exe')
     elif(rtconfig.PLATFORM == 'armclang'):
         path = os.path.join(path, 'armlink.exe')
 

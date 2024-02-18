@@ -473,7 +473,7 @@ def GetLocalDepend(options, depend):
 
 def AddDepend(option):
     if isinstance(option, str):
-    BuildOptions[option] = 1
+        BuildOptions[option] = 1
     elif isinstance(option, list):
         for obj in option:
             if isinstance(obj, str):
@@ -843,7 +843,7 @@ def GenTargetProject(program = None):
             MDK2Project(GetOption('project-name') + '.Uv2', Projects)
             print("Keil2 project is generating...")
         else:
-                    print ('No template project file found.')
+            print ('No template project file found.')
             exit(1)
         print("Keil Version: " + ARMCC_Version())
         print("Keil-MDK project has generated successfully!")

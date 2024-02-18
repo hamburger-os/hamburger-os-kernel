@@ -46,7 +46,7 @@ static enum rym_code _rym_recv_begin(
     rt_size_t len)
 {
     struct custom_ctx *cctx = (struct custom_ctx *)ctx;
-    struct stat file_buf;
+
     char insert_0 = '\0';
     char *ret;
     rt_err_t err;

@@ -1081,7 +1081,7 @@ int netdev_dhcp_close(char* netdev_name)
 }
 #endif
 
-static void netdev_set_if(char* netdev_name, char* ip_addr, char* gw_addr, char* nm_addr)
+void netdev_set_if(char* netdev_name, char* ip_addr, char* gw_addr, char* nm_addr)
 {
     struct netdev *netdev = RT_NULL;
     ip_addr_t addr;

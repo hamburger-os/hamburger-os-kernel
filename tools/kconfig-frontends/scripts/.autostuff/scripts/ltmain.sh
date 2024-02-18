@@ -10689,7 +10689,6 @@ EOF
 	  func_to_tool_file "$output_objdir/$libname.libcmd"
 	  oldobjs=" $archiver_list_spec$func_to_tool_file_result"
 	  cmds=$old_archive_cmds
-	  scons --target=ua -s
 	else
 	  # the command line is too long to link in one step, link in parts
 	  func_verbose "using piecewise archive linking..."
