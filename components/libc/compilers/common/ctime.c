@@ -345,7 +345,7 @@ RTM_EXPORT(strftime); /* inherent in the toolchain */
  */
 RT_WEAK time_t time(time_t *t)
 {
-    struct timeval now;
+    struct timeval now = {0};
 
     if(get_timeval(&now) == RT_EOK)
     {
