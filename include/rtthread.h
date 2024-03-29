@@ -496,15 +496,15 @@ rt_err_t rt_mq_send_wait_killable(rt_mq_t     mq,
                          rt_size_t   size,
                          rt_int32_t  timeout);
 rt_err_t rt_mq_urgent(rt_mq_t mq, const void *buffer, rt_size_t size);
-rt_ssize_t rt_mq_recv(rt_mq_t    mq,
+rt_err_t rt_mq_recv(rt_mq_t    mq,
                     void      *buffer,
                     rt_size_t  size,
                     rt_int32_t timeout);
-rt_ssize_t rt_mq_recv_interruptible(rt_mq_t    mq,
+rt_err_t rt_mq_recv_interruptible(rt_mq_t    mq,
                     void      *buffer,
                     rt_size_t  size,
                     rt_int32_t timeout);
-rt_ssize_t rt_mq_recv_killable(rt_mq_t    mq,
+rt_err_t rt_mq_recv_killable(rt_mq_t    mq,
                     void      *buffer,
                     rt_size_t  size,
                     rt_int32_t timeout);
@@ -517,7 +517,7 @@ rt_err_t rt_mq_send_wait_prio(rt_mq_t mq,
                               rt_int32_t prio,
                               rt_int32_t timeout,
                               int suspend_flag);
-rt_ssize_t rt_mq_recv_prio(rt_mq_t mq,
+rt_err_t rt_mq_recv_prio(rt_mq_t mq,
                            void *buffer,
                            rt_size_t size,
                            rt_int32_t *prio,
