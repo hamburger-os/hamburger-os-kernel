@@ -1097,7 +1097,10 @@ rt_err_t rt_mutex_release(rt_mutex_t mutex)
     RT_ASSERT(mutex != RT_NULL);
 //    RT_ASSERT(rt_object_get_type(&mutex->parent.parent) == RT_Object_Class_Mutex);
     if (rt_object_get_type(&mutex->parent.parent) != RT_Object_Class_Mutex)
+    {
+        rt_kprintf("%d: %s %s %d\n", rt_tick_get(), __FILE__, __FUNCTION__, __LINE__);
         return -RT_ENOSYS;
+    }
 
     need_schedule = RT_FALSE;
 
