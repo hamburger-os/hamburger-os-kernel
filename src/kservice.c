@@ -713,14 +713,14 @@ RTM_EXPORT(rt_strdup);
 void rt_show_version(void)
 {
     rt_kprintf("\n");
-    rt_kprintf("'  ######  ##      ##  #######   ######   #######   \n");
-    rt_kprintf("' ##    ## ##  ##  ## ##     ## ##    ## ##     ##  \n");
-    rt_kprintf("' ##       ##  ##  ## ##     ## ##              ##  \n");
-    rt_kprintf("'  ######  ##  ##  ## ##     ##  ######   #######   \n");
-    rt_kprintf("'       ## ##  ##  ## ##     ##       ## ##         \n");
-    rt_kprintf("'       ## ##  ##  ## ##     ##       ## ##         \n");
-    rt_kprintf("' ##    ## ##  ##  ## ##     ## ##    ## ##         \n");
-    rt_kprintf("'  ######   ###  ###   #######   ######  #########  \n");
+    rt_kprintf("'   _    _                 _                                ____   _____  \n");
+    rt_kprintf("'  | |  | |               | |                              # __ # # ____| \n");
+    rt_kprintf("'  | |__| | __ _ _ __ ___ | |__  _   _ _ __ __ _  ___ _ __| |  | | (___   \n");
+    rt_kprintf("'  |  __  |# _` | '_ ` _ #| '_ #| | | | '__# _` |# _ # '__| |  | |#___ #  \n");
+    rt_kprintf("'  | |  | | (_| | | | | | | |_) | |_| | | | (_| |  __# |  | |__| |____) | \n");
+    rt_kprintf("'  |_|  |_|#__,_|_| |_| |_|_.__# #__,_|_|  #__, |#___|_|   #____#|_____#  \n");
+    rt_kprintf("'                                           __# |                         \n");
+    rt_kprintf("'                                          |___#                          \n");
 #ifdef RT_USING_SMART
     rt_kprintf("'                     Thread Smart Operating System\n");
 #else
@@ -729,7 +729,7 @@ void rt_show_version(void)
     rt_kprintf("'                  %d.%d.%d build %s %s\n",
                (rt_int32_t)RT_VERSION_MAJOR, (rt_int32_t)RT_VERSION_MINOR, (rt_int32_t)RT_VERSION_PATCH, __DATE__, __TIME__);
     rt_kprintf("'                              Powered by RT-Thread\n");
-    rt_kprintf("'           2006 - 2023 Copyright by hnthinker team\n");
+    rt_kprintf("'                                                    2006 - 2023 Copyright\n");
 }
 RTM_EXPORT(rt_show_version);
 
