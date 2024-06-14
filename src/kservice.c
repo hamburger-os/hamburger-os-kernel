@@ -722,14 +722,14 @@ void rt_show_version(void)
     rt_kprintf("'                                           __# |                         \n");
     rt_kprintf("'                                          |___#                          \n");
 #ifdef RT_USING_SMART
-    rt_kprintf("'                     Thread Smart Operating System\n");
+    rt_kprintf("'                                            Thread Smart Operating System\n");
 #else
-    rt_kprintf("'                           Thread Operating System\n");
+    rt_kprintf("'                                                  Thread Operating System\n");
 #endif
-    rt_kprintf("'                  %d.%d.%d build %s %s\n",
+    rt_kprintf("'                                         %d.%d.%d build %s %s\n",
                (rt_int32_t)RT_VERSION_MAJOR, (rt_int32_t)RT_VERSION_MINOR, (rt_int32_t)RT_VERSION_PATCH, __DATE__, __TIME__);
-    rt_kprintf("'                              Powered by RT-Thread\n");
-    rt_kprintf("'                                                    2006 - 2023 Copyright\n");
+    rt_kprintf("'                                                     Powered by RT-Thread\n");
+    rt_kprintf("'                                                    2006 - 2024 Copyright\n");
 }
 RTM_EXPORT(rt_show_version);
 
